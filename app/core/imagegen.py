@@ -27,20 +27,20 @@ class Request:
     details: Optional[str] = None
 
 
-class ImageGen:
-    @staticmethod
-    def _make_prompt(request: Request) -> str:
-        return f"Person dressed in {format_params(request.colorscheme, '{} colorscheme ')}{format_params(request.details, '{} ')} {request.type} style{format_params(''.join(map(str, request.clothes)), ' with: {}')}."
+def _make_prompt(request: Request) -> str:
+    return f"Person dressed in {format_params(request.colorscheme, '{} colorscheme ')}{format_params(request.details, '{} ')} {request.type} style{format_params(''.join(map(str, request.clothes)), ' with: {}')}."
 
-    @staticmethod
-    def edit(original: BytesIO, mask: BytesIO, prompt: str) -> List[str]:
-        return list(map(lambda img: img["url"], openai.Image.create_edit(
-            image=original.getvalue(),
-            mask=mask.getvalue(),
-            prompt=prompt,
-            n=4,
-            size=settings.IMAGEGEN_SIZE
-        )["data"]))
 
-    def dress(self, original: BytesIO, mask: BytesIO, request: Request) -> List[str]:
-        return self.edit(original, mask, self._make_prompt(request))
+def edit(original: BytesIO, mask: BytesIO, prompt: str) -> List[str]:
+    return list(map(lambda img: img["url"], openai.Image.create_edit(
+        image=original.getvalue(),
+        mask=mask.getvalue(),
+        prompt=prompt,
+        n=4,
+        size=settings.IMAGEGEN_SIZE
+    )["data"]))
+
+
+def dress(original: BytesIO, mask: BytesIO, request: Request) -> List[str]:
+    return edit(original, mask, _make_prompt(request))
+
