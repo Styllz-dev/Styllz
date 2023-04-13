@@ -1,0 +1,58 @@
+<!-- о сайте -->
+<div class="about">
+  <p id="main">Make your own style</p>
+  <p class="about-text">free style development tool</p>
+  <p class="about-text">works right in browser</p>
+</div>
+<!-- о сайте и что он представляет-->
+<div class="container1">
+  <div>
+    <p class="header">Easy to start</p>
+    <p class="text">Styllz works right inside the browser.
+      No need to worry about installing add-ons,
+      everything is included right away.</p>
+  </div>
+  <div>
+    <p class="header">Unique</p>
+    <p class="text">There are no services that would perform the functions of an exception,
+      and we are constantly connecting the interface and adding new features.</p>
+  </div>
+  <div>
+    <p class="header">On different languages</p>
+    <p class="text">Inside our site you have been given
+      a lot of different functions with which you can
+      create your new style.</p>
+  </div>
+</div>
+
+<!-- Иконки -->
+<div class="container2">
+  <div class="clothes-array">
+    <div id="clothes-array" class="clothes-array__wrap">
+      <div class="clothes-array__topic" *ngFor="let i of clothes">
+        <img class="clothes-array__img" [src]="i">
+      </div>
+    </div>
+  </div>
+  <div class="text__container">
+    <p class="header">One site to do all the things</p>
+    <p class="text">With the help of our site you can create your
+      own unique style and find all the pictures on the Internet
+      that will help you realize your idea. Choose your favorite
+      clothes, shoes, accessories and more and our algorithm will
+      find all the images that match your style.</p>
+  </div>
+</div>
+
+<!-- Begin container -->
+<div class="container3">
+  <div>
+    <p class="header">Let's begin</p>
+    <p class="text">Start creating a style,
+      search for things on the Internet and
+      post your styles at least every day.
+      If you're ready, let's get started together
+      and create something amazing!</p>
+    <button (click)="login()" id="start">start</button>
+  </div>
+</div>

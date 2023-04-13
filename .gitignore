@@ -1,2 +1,6 @@
 /.idea/
 /venv/
+/db.sqlite3
+/static/frontend/node_modules/
+/static/frontend/dist/
+/static/frontend/.angular/

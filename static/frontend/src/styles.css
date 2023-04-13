@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
+
+body, p, div, a, h1 {
+  padding: 0;
+  margin: 0;
+}
+*::-webkit-scrollbar {
+  width: 0;
+}
+* {
+  user-select: none;
+}
+body {
+  background: #000000;
+  color: #ffffff;
+  fill: transparent;
+  stroke: #ffffff;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
