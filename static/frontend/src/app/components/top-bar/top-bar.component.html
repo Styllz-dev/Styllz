@@ -1,0 +1,48 @@
+<header id="main-header">
+  <p (click)="go('')" id="name">Sty<b style="color: #000aff;">ll</b>z</p>
+  <div id="big-screen">
+    <ul class="table1">
+      <li (click)="go('/create-style')" style="display: inline-block;">
+        <a>create style</a>
+      </li>
+    </ul>
+
+    <ul class="table2">
+      <li *ngIf="router.url != '/sign-in' && !profile.is_registered()">
+        <button (click)="go('/sign-in')" class="button2">Log in</button>
+      </li>
+      <li class="li-profile-form" *ngIf="profile.is_registered()">
+        <button (click)="show_profile_form()" class="button2">
+          <svg width="10px" fill="#1f74e5" id="profile-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+          </svg>
+          Profile
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div id="profile-form" class="profile-container">
+    <ul class="content">
+      <li (click)="go('/settings')" style="display: inline-block;">
+        <a>settings</a>
+      </li>
+    </ul>
+  </div>
+  <svg (click)="show()" [class.chosen]="is_shown()" class="small-screen" id="small-screen" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+    <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+  </svg>
+
+  <form style="" id="small-screen-form">
+    <ul>
+      <li (click)="go('/create-style')">
+        <a>create style</a>
+      </li>
+      <li (click)="go('/settings')">
+        <a>settings</a>
+      </li>
+    </ul>
+    <button (click)="go('/sign-in')" *ngIf="router.url != '/sign-in' && !profile.is_registered()" class="small-screen-div">Log in</button>
+  </form>
+</header>
+

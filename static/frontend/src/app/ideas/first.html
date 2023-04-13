@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>.parallax {
+    position: fixed;
+  }</style>
+  <script>
+    // функция линейной интерполяции
+    let lerp = (a, b, val) => a + val * (b - a);
+    // генератор псевдослучайных чисел
+    let rand = n => (Math.sin(n)*43758.5453123)%1;
+    // одномерный шум
+    let noise = p => lerp(rand(Math.floor(p)), rand(Math.floor(p) + 1.0), p%1);
+    // слои, принимающие участие в параллакс эффекте
+    let layers = document.querySelectorAll('.parallax');
+    // массив с состояниями слоёв
+    let offsets = [...layers].map(l => ({x:0, y:0, X:0, Y:0}));
+
+    // слушатель положения курсора
+    addEventListener('mousemove', e => {
+      let dx = innerWidth/2 - e.x; // дельта по X от центра экрана
+      let dy = innerHeight/2 - e.y; // дельта по X от центра экрана
+      offsets.forEach((layer, i) => { // для каждого слоя поменяем "целевое" положение
+        layer.X = (1 + i) * dx * 0.1; // положение слоя по X
+        layer.Y = (1 + i) * dy * 0.1; // положение слоя по Y
+      });
+    })
+
+    requestAnimationFrame(draw); // говорим браузеру что надо нарисовать кадр
+
+    // функция, которая рисует один кадр, ее аргумент - время с начала анимации в мс
+    function draw(t) {
+      offsets.forEach((layer, i) => {         // для каждого слоя,
+        layer.x += (layer.X - layer.x) * 0.1; // двигаемся в сторону целевого положения по Х
+        layer.y += (layer.Y - layer.y) * 0.1; // и по Y
+        let x = layer.x + noise((1e5+t/9e3)*(i+1))*33; // + значение шума от времени по Х
+        let y = layer.y + noise((1e7+t/9e3)*(i+1))*22; // и по Y
+        layers[i].style.transform = `translate(${x}px,${y}px)`; // двигаем слой
+      })
+      requestAnimationFrame(draw); // говорим браузеру что надо-бы нарисовать еще один кадр
+    }
+  </script>
+</head>
+<body>
+<div class="parallax">
+  <img src="https://picsum.photos/id/41/900/300"
+       style="margin:-50px">
+</div>
+<div class="parallax">
+  <img src="https://picsum.photos/id/23/150"
+       style="margin:20px">
+</div>
+<div class="parallax">
+  <img src="https://picsum.photos/id/43/80"
+       style="margin:40px">
+</div>
+
+</body>
+</html>
