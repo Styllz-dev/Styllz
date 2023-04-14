@@ -58,9 +58,10 @@ class Command(BaseRunserverCommand):
         if _ALREADY_WATCHING or os.environ.get('RUN_MAIN') == 'true':
             return
         print('Will watch JS ' + repr(self))
-        p = subprocess.Popen(['ng', 'build', '--watch'], stdout=subprocess.DEVNULL if not log_build else None,
+        p = subprocess.Popen(['ng', 'build', '--watch', '--output-path', settings.BASE_DIR / "static"],
+                             stdout=subprocess.DEVNULL if not log_build else None,
                              stderr=subprocess.STDOUT if not log_build else None, shell=_SHELL,
-                             cwd=settings.BASE_DIR / "static" / "frontend")
+                             cwd=settings.BASE_DIR / "frontend")
         atexit.register(lambda: _safe_kill(p))
         _ALREADY_WATCHING = True
 
