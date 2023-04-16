@@ -5,3 +5,5 @@
 /frontend/dist/
 /frontend/.angular/
 /static/
+/files/
+/.env

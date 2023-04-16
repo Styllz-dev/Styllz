@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@ocbmyt7-u+8o6na^8u9h2ry)ng)2-53(et6hy@rex*6yxn_u6'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-)wy0h9z6x4o3t4@=s_keq0x$illy9yqyo!4g8wk%mo8l+8imun')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'true') == 'true'
 
 ALLOWED_HOSTS = []
 
@@ -35,6 +35,8 @@ SILENCED_SYSTEM_CHECKS = ["staticfiles.W004"]
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'rest_framework',
+    'django_q',
 
     'web',
     'app',
@@ -115,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -132,6 +135,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "files"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -140,3 +146,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 IMAGEGEN_SIZE = "1024x1024"
+
+
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'workers': 4,
+    'timeout': 90,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default'
+}
