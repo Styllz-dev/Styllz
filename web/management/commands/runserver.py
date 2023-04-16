@@ -44,13 +44,14 @@ class Command(BaseRunserverCommand):
     def add_arguments(self, parser):
         super().add_arguments(parser)
         parser.add_argument('--watch', action='store_true', dest='watch', help='Runs JS build in development mode')
-        parser.add_argument('--log_build', action='store_true', dest='log_build', help='Log JS build process')
+        parser.add_argument('--log', action='store_true', dest='log', help='Log processes')
         parser.add_argument('--internal-run', action='store_true', dest='internal_run',
                             help='This starts the actual server')
 
     def handle(self, *args, **options):
         if options['watch'] and not options['internal_run']:
-            self.watch_js(options['log_build'])
+            self.watch_js(options['log'])
+        self.run_django_q(options['log'])
         super().handle(*args, **options)
 
     def watch_js(self, log_build: bool = False):
@@ -64,6 +65,15 @@ class Command(BaseRunserverCommand):
                              cwd=settings.BASE_DIR / "frontend")
         atexit.register(lambda: _safe_kill(p))
         _ALREADY_WATCHING = True
+
+    def run_django_q(self, log: bool = False):
+        if os.environ.get('RUN_MAIN') == 'true':
+            return
+        p = subprocess.Popen([sys.executable, 'manage.py', 'qcluster'],
+                             stdout=subprocess.DEVNULL if not log else None,
+                             stderr=subprocess.STDOUT if not log else None, shell=_SHELL,
+                             cwd=settings.BASE_DIR)
+        atexit.register(lambda: _safe_kill(p))
 
     # Runs this command but with --internal-run
     def run_child(self, second=False):
