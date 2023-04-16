@@ -49,9 +49,10 @@ class Command(BaseRunserverCommand):
                             help='This starts the actual server')
 
     def handle(self, *args, **options):
-        if options['watch'] and not options['internal_run']:
-            self.watch_js(options['log'])
-        self.run_django_q(options['log'])
+        if not options['internal_run']:
+            if options['watch']:
+                self.watch_js(options['log'])
+            self.run_django_q(options['log'])
         super().handle(*args, **options)
 
     def watch_js(self, log_build: bool = False):
