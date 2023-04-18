@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
   change_theme(): void {
     this.settings.change_theme();
     // @ts-ignore
-    document.getElementById('body').style.background = (this.settings.get_color_theme());
+    document.getElementById('body').style.background = (this.settings.get_color_theme() === 'black'? 'linear-gradient(90deg, #333333, #000000)' : 'white');
     // @ts-ignore
     document.getElementById('body').style.color = (this.settings.get_color_theme() === 'white'? 'black' : 'white');
     // @ts-ignore
@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
     // @ts-ignore
     document.getElementById('profile-form').style.color = this.settings.get_color_theme();
     // @ts-ignore
-    document.getElementById('main-header').style.background = this.settings.get_color_theme();
+    document.getElementById('main-header').style.background = (this.settings.get_color_theme() === 'black'? 'linear-gradient(90deg, #333333, #000000)' : 'white');
   }
 
 }

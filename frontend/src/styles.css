@@ -11,7 +11,13 @@ body, p, div, a, h1 {
   user-select: none;
 }
 body {
-  background: #000000;
+  background: linear-gradient(90deg, #333333, #000000);
+  color: #ffffff;
+  fill: transparent;
+  stroke: #ffffff;
+}
+body.chosen {
+  background: linear-gradient(90deg, #333333, #000000);
   color: #ffffff;
   fill: transparent;
   stroke: #ffffff;
