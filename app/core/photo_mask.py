@@ -1,162 +1,112 @@
-from io import BytesIO
-
 import cv2
 import mediapipe as mp
 import numpy as np
+from io import BytesIO
 from PIL import Image
+from app.core.exceptions import PoseException, PhotoException
 
 
-def make_photo_mask(stream: BytesIO) -> BytesIO:
+def make_photo_mask(stream: BytesIO) -> tuple[BytesIO, BytesIO]:
+    # region Image processing
     raw_image = Image.open(stream)
-
     frame = np.asarray(raw_image)
-
-    # frame = cv2.imread("input.jpg", cv2.IMREAD_UNCHANGED)
-    # print(frame.shape[0], frame.shape[1])
-    # for x in range(frame.shape[0]):
-    #     for y in range(200):
-    #         result[x][y] = [frame[x][y][0], frame[x][y][1], frame[x][y][2], 0]
-
-    # cv2.imwrite('outputT.png', result)
-
-    mp_drawing = mp.solutions.drawing_utils
     mp_holistic = mp.solutions.holistic
-
     holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+    # endregion
 
-    # Recolor Feed
-    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    # Make Detections
-    results = holistic.process(image)
-    # print(results.pose_landmarks)
-    # face_landmarks, pose_landmarks, left_hand_landmarks, right_hand_landmarks
-    # Recolor image back to BGR for rendering
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-
-    # Draw face landmarks
-    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_TESSELATION,
-                              mp_drawing.DrawingSpec(color=(80, 110, 10), thickness=1, circle_radius=1),
-                              mp_drawing.DrawingSpec(color=(80, 256, 121), thickness=1, circle_radius=1)
-                              )
-
-    # Right hand
-    # mp_drawing.draw_landmarks(image, results.right_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
-
-    # Left Hand
-    # mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS)
-
-    # Pose Detections
-    mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS)
+    # region Pose detection
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = holistic.process(frame)
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
     landmark = results.pose_landmarks.landmark
+    # endregion
 
-    def distance(f, s, shape=frame.shape):
-        x1, y1 = landmark[f].x * shape[1], landmark[f].y * shape[0]
-        x2, y2 = landmark[s].x * shape[1], landmark[s].y * shape[0]
-        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
-
-    presence = 0.25
-    left_border = landmark[12].x * (1 - presence)
-    right_border = landmark[11].x * (1 + presence)
-
+    # region Determining borders
+    distance = abs(landmark[11] - landmark[12])
+    presence_x = distance / 2
+    presence_y = presence_x / 4
+    left_border = landmark[12].x - presence_x
+    right_border = landmark[11].x + presence_x
     middle = (left_border + right_border) / 2
+    top_border = max(landmark[12].y - presence_y, 0)
+    bottom_border = min(max([landmark[27].y, landmark[28].y, landmark[29].y, landmark[30].y, landmark[31].y,
+                             landmark[32].y]) + presence_y, 1)
+    # endregion
 
-    def InBorder(landmarkIndex):
-        return (left_border < landmark[landmarkIndex].x < right_border) and landmark[landmarkIndex].y < landmark[0].y
+    _validate_pose(landmark, left_border, middle, right_border)
 
-    pose_validated = False
+    frame_with_hole = _cut_person(frame, right_border, left_border, bottom_border, top_border)
 
-    if (landmark[12].y > landmark[24].y > landmark[26].y > landmark[
-        28].y and  # left side vertical
-            landmark[11].y > landmark[23].y > landmark[25].y > landmark[
-                27].y and  # right side vertical
-            landmark[12].x < middle and landmark[24].x < middle and landmark[26].x < middle and landmark[
-                28].x < middle and  # left side horizontal
-            landmark[11].x > middle and landmark[23].x > middle and landmark[25].x > middle and landmark[
-                27].x > middle and  # right side horizontal
-            landmark[8].x > landmark[12].x and landmark[8].y > landmark[12].y and landmark[8].x < landmark[7].x <
-            landmark[11].x and landmark[7].y > landmark[11].y and  # head
-            InBorder(14) and InBorder(16) and InBorder(18) and InBorder(20) and InBorder(22) and  # left hand
-            InBorder(13) and InBorder(15) and InBorder(17) and InBorder(19) and InBorder(21) and  # right hand
-            InBorder(24) and InBorder(26) and InBorder(28) and InBorder(30) and InBorder(32) and  # left leg
-            InBorder(23) and InBorder(25) and InBorder(27) and InBorder(29) and InBorder(29)  # right leg
-    ):
-        pose_validated = True
+    frame, frame_with_hole = _crop_frames(frame, frame_with_hole, landmark, bottom_border, middle, presence_x,
+                                          presence_y)
 
-    pose_validated = True
-    cutting_coef = 0.05
-    if (pose_validated):
-        top_border = max(landmark[12].y - cutting_coef, 0)
-        bottom_border = min(max([landmark[27].y, landmark[28].y, landmark[29].y, landmark[30].y, landmark[31].y,
-                                 landmark[32].y]) + cutting_coef, 1)
+    # region Returning frame
+    final_frame = Image.fromarray(frame)
+    final_stream_frame = BytesIO()
+    final_frame.save(final_stream_frame, format="PNG")
+    final_frame_with_hole = Image.fromarray(frame_with_hole)
+    final_stream_frame_with_hole = BytesIO()
+    final_frame_with_hole.save(final_stream_frame_with_hole, format="PNG")
+    return final_stream_frame, final_stream_frame_with_hole
+    # endregion
 
-        # print(top_border, bottom_border)
-        # cutting person
 
-        # atODO validate photo
+def _validate_pose(landmark, left_border, middle, right_border) -> bool:
+    def in_border(landmark_indexes):
+        for landmark_index in landmark_indexes:
+            if not (left_border < landmark[landmark_index].x < right_border and
+                    landmark[landmark_index].y < landmark[0].y):
+                return False
+        return True
 
-        result = np.zeros((frame.shape[0], frame.shape[1], 4), dtype=np.uint8)
+    left_side_vertical = landmark[12].y > landmark[24].y > landmark[26].y > landmark[28].y
+    right_side_vertical = landmark[11].y > landmark[23].y > landmark[25].y > landmark[27].y
+    left_side_horizontal = landmark[12].x < middle and landmark[24].x < middle and landmark[26].x < middle and \
+                           landmark[28].x < middle
+    right_side_horizontal = landmark[11].x > middle and landmark[23].x > middle and landmark[25].x > middle and \
+                            landmark[27].x > middle
+    head_horizontal = landmark[12].x < landmark[8].x < landmark[7].x < landmark[11].x
+    head_vertical = landmark[8].y > landmark[12].y and landmark[7].y > landmark[11].y
+    left_hand = in_border([14, 16, 18, 20, 22])
+    right_hand = in_border([13, 15, 17, 19, 21])
+    left_leg = in_border([24, 26, 28, 30, 32])
+    right_leg = in_border([23, 25, 27, 29, 31])
 
-        for x in range(frame.shape[1]):
-            for y in range(frame.shape[0]):
-                result[y][x] = [frame[y][x][0], frame[y][x][1], frame[y][x][2], 255]
-        for x in range(int(left_border * frame.shape[1]), int(right_border * frame.shape[1])):
-            for y in range(int(top_border * frame.shape[0]), int(bottom_border * frame.shape[0])):
-                result[y][x] = [frame[y][x][0], frame[y][x][1], frame[y][x][2], 0]
-
-        # cv2.imwrite('output.png', result)
-
+    if (left_side_vertical and right_side_vertical and left_side_horizontal and right_side_horizontal
+            and head_horizontal and head_vertical and left_hand and right_hand and left_leg and right_leg):
+        return True
     else:
-        pass
-        # print("Wrong pose")
+        raise PoseException()
 
-    final_image = Image.fromarray(result)
 
-    final_stream = BytesIO()
-    final_image.save(final_stream, format="PNG")
+def _cut_person(frame, right_border, left_border, bottom_border, top_border):
+    result = np.zeros((frame.shape[0], frame.shape[1], 4), dtype=np.uint8)
+    for x in range(frame.shape[1]):
+        for y in range(frame.shape[0]):
+            result[y][x] = [frame[y][x][0], frame[y][x][1], frame[y][x][2], 255]
+    for x in range(int(left_border * frame.shape[1]), int(right_border * frame.shape[1])):
+        for y in range(int(top_border * frame.shape[0]), int(bottom_border * frame.shape[0])):
+            result[y][x] = [frame[y][x][0], frame[y][x][1], frame[y][x][2], 0]
+    return result
 
-    return final_stream
 
-    # cv2.imwrite('outputL.png', image)
+def _crop_frames(frame, frame_with_hole, landmark, bottom_border, middle, presence_x, presence_y):
+    cropping_top = int((landmark[0].y - presence_x) * frame.shape[1])
+    cropping_bottom = int((bottom_border + presence_y) * frame.shape[0])
+    if cropping_top < 0 or cropping_bottom > frame.shape[0]:
+        raise PhotoException()
 
-    # cv2.waitKey(0)
-    # cv2.destroyWindow("python")
+    height = cropping_bottom - cropping_top
+    half_height = int(height / 2)
+    cropping_left = int(middle * frame.shape[1]) - half_height
+    cropping_right = cropping_left + height
+    if cropping_left < 0 or cropping_right > frame.shape[1]:
+        raise PhotoException()
 
-    # poseDetector = mp.solutions.hands.Hands(
-    #     static_image_mode=True,
-    #     max_num_hands=1,
-    #     min_detection_confidence=0.5)
-    # image = cv2.imread("input.jpg")
-    # flipped = np.fliplr(image)
-    # flippedRGB = cv2.cvtColor(flipped, cv2.COLOR_BGR2RGB)
-    # results = poseDetector.process(flippedRGB)
-    # if results.multi_hand_landmarks is not None:
-    #     def distance(f, s, landmark=results.multi_hand_landmarks[0].landmark, shape=flippedRGB.shape):
-    #         x1, y1 = landmark[f].x * shape[1], landmark[f].y * shape[0]
-    #         x2, y2 = landmark[s].x * shape[1], landmark[s].y * shape[0]
-    #         return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
-    #
-    #     f1 = distance(0, 8)
-    #     f2 = distance(0, 12)
-    #     f3 = distance(0, 16)
-    #     f4 = distance(0, 20)
-    #     ft = distance(0, 1) + distance(1, 2) + distance(2, 3) + distance(3, 4)
-    #
-    #     avgf = (f1 + f2 + f3 + f4) / 4
-    #     # print(f1, f2, f3, f4, ft, avgf)
-    #
-    #     ratio_diff = 0.3
-    #
-    #     if abs(f1 / avgf - 1) < ratio_diff and abs(f2 / avgf - 1) < ratio_diff and abs(
-    #             f3 / avgf - 1) < ratio_diff and abs(f4 / avgf - 1) < ratio_diff:
-    #         if (ft > avgf):
-    #             print("Stone")
-    #         else:
-    #             print("Paper")
-    #     else:
-    #         print("Sissors")
-    #
-    # # res_image = cv2.cvtColor(np.fliplr(flippedRGB), cv2.COLOR_RGB2BGR)
-    # # print(results.multi_handedness)
-    # # cv2.imshow("Hands", res_image)
-    # # cv2.waitKey(0)
-    # poseDetector.close()
+    minimum_resolution = 128
+    if (height < minimum_resolution):
+        raise PhotoException()
+
+    frame = frame[cropping_top:cropping_bottom, cropping_left:cropping_right]
+    frame_with_hole = frame_with_hole[cropping_top:cropping_bottom, cropping_left:cropping_right]
+    return frame, frame_with_hole
