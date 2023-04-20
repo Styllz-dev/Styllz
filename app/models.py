@@ -6,11 +6,10 @@ class Style(models.Model):
         verbose_name = "Стиль"
         verbose_name_plural = "Стиль"
 
-    alias = models.CharField(max_length=50, verbose_name="Наименование")
     name = models.CharField(max_length=50, verbose_name="Название")
 
     def __str__(self):
-        return self.alias
+        return self.name
 
 
 class Clothing(models.Model):
@@ -18,12 +17,11 @@ class Clothing(models.Model):
         verbose_name = "Одежда"
         verbose_name_plural = "Одежда"
 
-    alias = models.CharField(max_length=50, verbose_name="Наименование")
     name = models.CharField(max_length=50, verbose_name="Название")
     icon = models.ImageField(blank=True, null=True, verbose_name="Иконка")
 
     def __str__(self):
-        return self.alias
+        return self.name
 
 
 class Prompt(models.Model):
