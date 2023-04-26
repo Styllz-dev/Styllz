@@ -30,6 +30,7 @@ class Prompt(models.Model):
         verbose_name_plural = "Запросы"
 
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Пользователь")
+    image = models.ImageField(verbose_name="Картинка")
     type = models.ForeignKey(Style, on_delete=models.CASCADE, verbose_name="Тип")
     clothes = models.ManyToManyField(Clothing, blank=True, verbose_name="Одежда")
     colorscheme = models.CharField(max_length=50, blank=True, verbose_name="Цветовая гамма")
