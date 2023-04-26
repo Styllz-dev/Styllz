@@ -57,7 +57,7 @@ export class CreateStyleComponent implements OnInit {
   }
   create_style(): void {
     if (this.is_all_chosen()) {
-      alert('ok')
+      //TODO сделать отсылание на backend
     }
   }
 

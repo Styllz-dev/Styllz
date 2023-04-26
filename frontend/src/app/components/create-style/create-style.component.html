@@ -3,7 +3,7 @@
     <div class="image-chose-section">
       <div *ngIf="!imageUrl" class="image-input" >
         <input (change)="onFileSelected($event)" class="input1" type="file" accept="image/*" title=" " placeholder="" id="image-input"/>
-        <a>Выберите файл</a>
+        <a>Choose your file</a>
       </div>
       <div *ngIf="imageUrl">
         <img [src]="imageUrl" alt="Selected Image">
@@ -17,11 +17,11 @@
   <div class="right" id="right-aside">
     <div class="post-container">
       <div class="name-div">
-        <p class="name-text">Название</p>
+        <p class="name-text">Name</p>
         <input class="name-input" type="text" [(ngModel)]="name">
       </div>
       <div (click)="create_style()" [class.chosen]="is_all_chosen()" class="done-button">
-        <p>Создать стиль</p>
+        <p>Create style</p>
       </div>
     </div>
 

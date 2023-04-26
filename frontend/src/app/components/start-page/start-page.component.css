@@ -83,9 +83,11 @@ p {
   height: min(100px, 70vw);
 }
 .container2 .text__container {
+  box-sizing: border-box;
   width: 100%;
   text-align: center;
   margin-top: 90px;
+  padding-bottom: 30px;
 }
 .container2 .text__container .header {
   text-transform: uppercase;

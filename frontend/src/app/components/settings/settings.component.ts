@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
     // @ts-ignore
     document.getElementById('body').style.fill = (this.settings.get_color_theme() === 'white'? 'black' : 'white');
     // @ts-ignore
-    document.getElementById('small-screen-form').style.background = this.settings.get_color_theme();
+    document.getElementById('small-screen-form').style.background = (this.settings.get_color_theme() === 'black'? 'linear-gradient(90deg, #333333, #000000)' : 'white');
     // @ts-ignore
     document.getElementById('small-screen').style.fill = (this.settings.get_color_theme() === 'white'? 'black' : 'white');
     // @ts-ignore
