@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_q',
+    "django_browser_reload",
 
     'web',
     'app',
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'Styllz.urls'
