@@ -57,7 +57,6 @@ export class StartPageComponent implements OnInit {
       // @ts-ignore
       let y = document.getElementById('clothes-array').getBoundingClientRect().y;
       y = (y - 500) / 30 - 50;
-      console.log(y + '%');
       // @ts-ignore
       document.getElementById('clothes-array').style.left = y + '%';
     })
@@ -65,7 +64,6 @@ export class StartPageComponent implements OnInit {
     // @ts-ignore
     let y = document.getElementById('clothes-array').getBoundingClientRect().y;
     y = (y - 500) / 30 - 50;
-    console.log(y + '%');
     // @ts-ignore
     document.getElementById('clothes-array').style.left = y + '%';
   }

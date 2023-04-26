@@ -53,6 +53,5 @@ export class TopBarComponent implements OnInit {
   }
 
   out() {
-      console.log(this.router);
   }
 }
