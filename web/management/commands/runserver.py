@@ -52,7 +52,7 @@ class Command(BaseRunserverCommand):
         if not options['internal_run']:
             if options['watch']:
                 self.watch_js(options['log'])
-            self.run_django_q(options['log'])
+            #self.run_django_q(options['log'])
         super().handle(*args, **options)
 
     def watch_js(self, log_build: bool = False):

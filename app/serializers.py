@@ -20,7 +20,7 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Prompt
-        fields = ['id', 'type', 'clothes', 'colorscheme', 'details', 'results']
+        fields = ['id', 'type', 'image', 'clothes', 'colorscheme', 'details', 'results']
         read_only_fields = ['results']
 
 
