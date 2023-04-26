@@ -26,8 +26,8 @@
     </div>
 
     <div class="styles-container">
-      <div [class.chosen]="chosen_style === style" [class.unchosen]="chosen_style !== style && chosen_style !== ''" (click)="chosen_style === style? chosen_style = '' : chosen_style = style" class="styles-list" *ngFor="let style of styles">
-        <p>{{style}}</p>
+      <div [class.chosen]="chosen_style === style" [class.unchosen]="chosen_style !== style && chosen_style" (click)="chosen_style === style? chosen_style = undefined : chosen_style = style" class="styles-list" *ngFor="let style of styles">
+        <p>{{style.name}}</p>
       </div>
     </div>
   </div>

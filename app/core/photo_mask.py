@@ -2,11 +2,12 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from io import BytesIO
+from typing import Tuple
 from PIL import Image
 from app.core.exceptions import PoseException, PhotoException
 
 
-def make_photo_mask(stream: BytesIO) -> tuple[BytesIO, BytesIO]:
+def make_photo_mask(stream: BytesIO) -> Tuple[BytesIO, BytesIO]:
     # region Image processing
     raw_image = Image.open(stream)
     frame = np.asarray(raw_image)

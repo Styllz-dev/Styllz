@@ -1,7 +1,7 @@
 export class Prompt {
     id?: number;
     type?: number;
-    image?: string;
+    image?: File;
     clothes?: number[];
     colorscheme?: string;
     details?: string;

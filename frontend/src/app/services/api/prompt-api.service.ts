@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Prompt } from '../../models/prompt.model';
 
+
 const baseUrl = '/api/prompts';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TutorialService {
+export class PromptApiService {
 
   constructor(private http: HttpClient) { }
 
@@ -21,11 +22,7 @@ export class TutorialService {
   }
 
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
-  }
-
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.post(`${baseUrl}/`, data);
   }
 
   delete(id: any): Observable<any> {

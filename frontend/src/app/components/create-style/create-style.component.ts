@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StylesApiService } from "../../services/api/styles-api.service";
+import { PromptApiService } from "../../services/api/prompt-api.service";
 import { Styles } from "../../models/styles.model";
+import {Prompt} from "../../models/prompt.model";
 
 @Component({
   selector: 'app-create-style',
@@ -25,22 +27,22 @@ export class CreateStyleComponent implements OnInit {
   //   "Business Casual",
   //   "Городской шик",
   // ]
-  public styles: string[] = [];
-  public chosen_style: string = "";
+  public styles: Styles[] = [];
+  public chosen_style?: Styles;
   public name: string = "";
   public link: string = "";
+  public details: string = "";
+  public color_scheme: string = "";
   public imageUrl?: string;
+  public clothes_array: number[] = [];
+  public image?: File;
 
-  constructor(private stylesApi : StylesApiService) { }
+  constructor(private stylesApi : StylesApiService, private promptApi : PromptApiService) { }
 
   ngOnInit(): void {
     this.stylesApi.getAll().subscribe(
         data=> {
-          for (let i = 0; i < data.length; ++i) {
-              // @ts-ignore
-              this.styles.push(data[i].name)
-              console.log(data[i].name);
-            }
+          this.styles = data;
         }
     )
   }
@@ -69,7 +71,25 @@ export class CreateStyleComponent implements OnInit {
   }
   create_style(): void {
     if (this.is_all_chosen()) {
+      const data:Prompt = {
+        type: this.chosen_style?.id,
+        image: this.image,
+        clothes: this.clothes_array,
+        colorscheme: this.color_scheme,
+        details: this.details,
+      }
+      let formData = new FormData()
+      for (const [name, value] of Object.entries(data)) {
+        if (value && value.length !== 0) {
+          formData.append(name, value);
+        }
+      }
 
+      this.promptApi.create(formData).subscribe(
+          response => {
+            console.log(response)
+          }
+      )
     }
   }
 
@@ -78,6 +98,7 @@ export class CreateStyleComponent implements OnInit {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    this.image = file;
     reader.onload = () => {
       this.imageUrl = reader.result as string;
     };

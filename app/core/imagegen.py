@@ -3,7 +3,7 @@ from django.core.files import File
 from django.conf import settings
 from django.db import models
 
-from utils import format_params, download_image
+from app.core.utils import format_params, download_image
 
 from io import BytesIO
 import openai

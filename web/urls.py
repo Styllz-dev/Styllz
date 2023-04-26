@@ -17,7 +17,13 @@ Including another URLconf
 from django.urls import path, re_path
 from web.views import index
 
-urlpatterns = [
-    re_path(r'^(?P<path>.*)/$', index),
-    path('', index),
-]
+
+routes = ['create-style',
+            'styles',
+            'sign-in',
+            'settings',
+            'test',
+            '']
+
+
+urlpatterns = [path(route, index) for route in routes]
