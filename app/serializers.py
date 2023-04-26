@@ -5,13 +5,13 @@ from rest_framework import serializers
 class StyleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Style
-        fields = ['id', 'alias', 'name']
+        fields = ['id', 'name']
 
 
 class ClothingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Clothing
-        fields = ['id', 'alias', 'name', 'icon']
+        fields = ['id', 'name', 'icon']
 
 
 class PromptSerializer(serializers.HyperlinkedModelSerializer):

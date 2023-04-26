@@ -1,5 +1,10 @@
-class PoseException(BaseException):
+class MaskException(Exception):
     pass
 
-class PhotoException(BaseException):
+
+class PoseException(MaskException):
+    pass
+
+
+class PhotoException(MaskException):
     pass
