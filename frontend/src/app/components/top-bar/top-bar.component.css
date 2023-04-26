@@ -7,6 +7,9 @@
   background: linear-gradient(90deg, #333333, #000000);
 
   z-index: 10000;
+
+  box-sizing: border-box;
+  padding-right: 30px;
 }
 
 #name {
@@ -34,6 +37,7 @@ ul li a {
   margin-top: 0;
   font-size: 20px;
   color: #9B9B9B;
+
   font-family: "Bitstream Charter", sans-serif;
 }
 .table1 li:not(:first-child) {
@@ -41,6 +45,7 @@ ul li a {
 }
 
 .table2 {
+  top: 31px;
   position: absolute;
   right: 50px;
   line-height: 100px;
