@@ -1,6 +1,9 @@
 from rest_framework import viewsets, mixins, permissions
 from app.models import Prompt
 from app.serializers import PromptSerializer
+from django.conf import settings
+
+from django_q.tasks import async_task
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -25,7 +28,12 @@ class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Des
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        prompt = serializer.save(user=self.request.user)
+        if settings.DEBUG:
+            from app.core.pipeline import make_photo
+            make_photo(prompt)
+        else:
+            async_task("app.core.pipeline.make_photo", prompt)
 
 
 __all__ = ['PromptViewSet']
