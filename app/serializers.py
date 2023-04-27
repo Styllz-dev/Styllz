@@ -1,4 +1,4 @@
-from app.models import Style, Clothing, Prompt
+from app.models import Style, Clothing, Prompt, Result
 from rest_framework import serializers
 
 
@@ -17,10 +17,12 @@ class ClothingSerializer(serializers.HyperlinkedModelSerializer):
 class PromptSerializer(serializers.HyperlinkedModelSerializer):
     type = serializers.PrimaryKeyRelatedField(queryset=Style.objects.all())
     clothes = serializers.PrimaryKeyRelatedField(queryset=Clothing.objects.all(), many=True)
+    results = serializers.SerializerMethodField()
 
     class Meta:
         model = Prompt
         fields = ['id', 'type', 'image', 'clothes', 'colorscheme', 'details', 'results']
         read_only_fields = ['results']
 
-
+    def get_results(self, prompt: Prompt):
+        return [self.context.get('request').build_absolute_uri(result.image.url) for result in prompt.results.all()]

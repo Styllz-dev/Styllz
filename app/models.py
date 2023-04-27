@@ -18,7 +18,7 @@ class Clothing(models.Model):
         verbose_name_plural = "Одежда"
 
     name = models.CharField(max_length=50, verbose_name="Название")
-    icon = models.ImageField(blank=True, null=True, verbose_name="Иконка")
+    icon = models.ImageField(blank=True, null=True, upload_to="clothes", verbose_name="Иконка")
 
     def __str__(self):
         return self.name
@@ -30,7 +30,7 @@ class Prompt(models.Model):
         verbose_name_plural = "Запросы"
 
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Пользователь")
-    image = models.ImageField(verbose_name="Картинка")
+    image = models.ImageField(upload_to="prompts", verbose_name="Картинка")
     type = models.ForeignKey(Style, on_delete=models.CASCADE, verbose_name="Тип")
     clothes = models.ManyToManyField(Clothing, blank=True, verbose_name="Одежда")
     colorscheme = models.CharField(max_length=50, blank=True, verbose_name="Цветовая гамма")
@@ -46,4 +46,7 @@ class Result(models.Model):
         verbose_name_plural = "Результаты"
 
     prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="results", verbose_name="Запрос")
-    image = models.ImageField(verbose_name="Изображение")
+    image = models.ImageField(upload_to="results", verbose_name="Изображение")
+
+    def __str__(self):
+        return self.image.url
