@@ -35,6 +35,7 @@ class Prompt(models.Model):
     clothes = models.ManyToManyField(Clothing, blank=True, verbose_name="Одежда")
     colorscheme = models.CharField(max_length=50, blank=True, verbose_name="Цветовая гамма")
     details = models.CharField(max_length=150, blank=True, verbose_name="Комментарий")
+    error = models.TextField(blank=True, editable=False, verbose_name="Ошибка")
 
     def __str__(self):
         return f"{self.id} - {self.type}"

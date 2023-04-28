@@ -21,7 +21,7 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Prompt
-        fields = ['id', 'type', 'image', 'clothes', 'colorscheme', 'details', 'results']
+        fields = ['id', 'type', 'image', 'clothes', 'colorscheme', 'details', 'results', 'error']
         read_only_fields = ['results']
 
     def get_results(self, prompt: Prompt):

@@ -110,7 +110,7 @@ def _crop_frames(frame, frame_with_hole, landmark, bottom_border, left_border, m
     height = cropping_bottom - cropping_top # Height of the quad
 
     if (height < minimum_resolution):
-        raise PhotoException()
+        raise PhotoException("Resolution is under minimum limit")
 
     half_height = int(height / 2)
     cropping_left = int(middle * frame.shape[1]) - half_height
