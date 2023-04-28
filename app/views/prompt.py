@@ -29,11 +29,7 @@ class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Des
 
     def perform_create(self, serializer):
         prompt = serializer.save(user=self.request.user)
-        if settings.DEBUG:
-            from app.core.pipeline import make_photo
-            make_photo(prompt)
-        else:
-            async_task("app.core.pipeline.make_photo", prompt)
+        async_task("app.core.pipeline.make_photo", prompt)
 
 
 __all__ = ['PromptViewSet']
