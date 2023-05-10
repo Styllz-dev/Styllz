@@ -6,30 +6,26 @@ from django.conf import settings
 from django_q.tasks import async_task
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
     """
 
     def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        # Write permissions are only allowed to the owner of the snippet.
         return obj.user == request.user
 
 
 class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
-    queryset = Prompt.objects.all()
     serializer_class = PromptSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwner]
 
     def perform_create(self, serializer):
         prompt = serializer.save(user=self.request.user)
         async_task("app.core.pipeline.make_photo", prompt)
+
+    def get_queryset(self, *args, **kwargs):
+        return Prompt.objects.filter(owner=self.request.user)
 
 
 __all__ = ['PromptViewSet']

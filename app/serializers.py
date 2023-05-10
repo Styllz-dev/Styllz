@@ -1,4 +1,5 @@
-from app.models import Style, Clothing, Prompt, Result
+from django.contrib.auth.models import User
+from app.models import Style, Clothing, Prompt
 from rest_framework import serializers
 
 
@@ -26,3 +27,20 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_results(self, prompt: Prompt):
         return [self.context.get('request').build_absolute_uri(result.image.url) for result in prompt.results.all()]
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'last_name', 'first_name', 'password']
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+        )
+
+        return user

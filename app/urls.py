@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.urls import include, path
 from rest_framework import routers
-from app.views import StyleViewSet, ClothingViewSet, PromptViewSet
+from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'styles', StyleViewSet)
 router.register(r'clothes', ClothingViewSet)
 router.register(r'prompts', PromptViewSet, basename="Prompt")
+router.register(r'user', UserViewSet, basename="User")
 
 urlpatterns = [
     path('', include(router.urls)),
