@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'rest_framework',
+    'knox',
+
     'django_q',
+
     "django_browser_reload",
 
     'web',
@@ -69,8 +72,9 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'knox.auth.TokenAuthentication',
     ]
 }
 

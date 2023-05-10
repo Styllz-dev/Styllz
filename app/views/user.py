@@ -1,27 +1,34 @@
-from django.contrib.auth.models import User
-from rest_framework import viewsets, mixins, permissions
-from app.serializers import UserSerializer
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from knox.models import AuthToken
+from app.serializers import UserSerializer, RegisterSerializer
+from django.contrib.auth import login
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from knox.views import LoginView as KnoxLoginView
 
 
-class IsUser(permissions.BasePermission):
-    """
-    Custom permission to only allow owners of an object to edit it.
-    """
+class RegisterAPI(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
 
-    def has_object_permission(self, request, view, obj):
-        return obj == request.user
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)[1]
+        })
 
 
-class UserViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,
-                  mixins.CreateModelMixin, viewsets.GenericViewSet):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUser]
+class LoginAPI(KnoxLoginView):
+    permission_classes = (permissions.AllowAny,)
 
-    def get_permissions(self):
-        if self.action == 'list':
-            self.permission_classes = [IsUser]
-        return super(self.__class__, self).get_permissions()
+    def post(self, request, format=None):
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        return super(LoginAPI, self).post(request, format=format)
 
-    def get_queryset(self, *args, **kwargs):
-        if self.request.user:
-            return User.objects.filter(id=self.request.user.id)
+
+__all__ = ['RegisterAPI', 'LoginAPI']
