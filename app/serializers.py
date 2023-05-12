@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from app.models import Style, Clothing, Prompt
+from app.models import Style, Clothing, Prompt, ClothesPrompt
 from rest_framework import serializers
 
 
@@ -15,14 +15,22 @@ class ClothingSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'name', 'icon']
 
 
+class ClothesPromptSerializer(serializers.HyperlinkedModelSerializer):
+    clothing = serializers.PrimaryKeyRelatedField(queryset=Clothing.objects.all(), many=True)
+
+    class Meta:
+        model = ClothesPrompt
+        fields = ['clothing', 'color']
+
+
 class PromptSerializer(serializers.HyperlinkedModelSerializer):
     type = serializers.PrimaryKeyRelatedField(queryset=Style.objects.all())
-    clothes = serializers.PrimaryKeyRelatedField(queryset=Clothing.objects.all(), many=True)
+    clothes = ClothesPromptSerializer(many=True)
     results = serializers.SerializerMethodField()
 
     class Meta:
         model = Prompt
-        fields = ['id', 'type', 'image', 'clothes', 'colorscheme', 'details', 'results', 'error']
+        fields = ['id', 'type', 'image', 'clothes', 'details', 'results', 'error']
         read_only_fields = ['results']
 
     def get_results(self, prompt: Prompt):

@@ -1,7 +1,7 @@
+from django.contrib.auth.models import AnonymousUser
 from rest_framework import viewsets, mixins, permissions
 from app.models import Prompt
 from app.serializers import PromptSerializer
-from django.conf import settings
 
 from django_q.tasks import async_task
 
@@ -25,7 +25,9 @@ class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Des
         async_task("app.core.pipeline.make_photo", prompt)
 
     def get_queryset(self, *args, **kwargs):
-        return Prompt.objects.filter(owner=self.request.user)
+        if type(self.request.user) != AnonymousUser:
+            return Prompt.objects.filter(user=self.request.user)
+        return Prompt.objects.none()
 
 
 __all__ = ['PromptViewSet']

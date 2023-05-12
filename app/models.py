@@ -1,3 +1,4 @@
+from colorfield.fields import ColorField
 from django.db import models
 
 
@@ -32,13 +33,21 @@ class Prompt(models.Model):
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Пользователь")
     image = models.ImageField(upload_to="prompts", verbose_name="Картинка")
     type = models.ForeignKey(Style, on_delete=models.CASCADE, verbose_name="Тип")
-    clothes = models.ManyToManyField(Clothing, blank=True, verbose_name="Одежда")
-    colorscheme = models.CharField(max_length=50, blank=True, verbose_name="Цветовая гамма")
     details = models.CharField(max_length=150, blank=True, verbose_name="Комментарий")
     error = models.TextField(blank=True, editable=False, verbose_name="Ошибка")
 
     def __str__(self):
         return f"{self.id} - {self.type}"
+
+
+class ClothesPrompt(models.Model):
+    class Meta:
+        verbose_name = "Запрос одежды"
+        verbose_name_plural = "Запросы одежды"
+
+    prompt = models.ForeignKey(Prompt, on_delete=models.CASCADE, related_name="clothes", verbose_name="Запрос")
+    clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE, verbose_name="Одежда")
+    color = ColorField(format="hex", verbose_name="Цвет")
 
 
 class Result(models.Model):
