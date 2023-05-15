@@ -1,39 +1,33 @@
+from django.contrib.auth.models import AnonymousUser
 from rest_framework import viewsets, mixins, permissions
 from app.models import Prompt
 from app.serializers import PromptSerializer
-from django.conf import settings
 
 from django_q.tasks import async_task
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
     """
 
     def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        # Write permissions are only allowed to the owner of the snippet.
         return obj.user == request.user
 
 
 class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
-    queryset = Prompt.objects.all()
     serializer_class = PromptSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwner]
 
     def perform_create(self, serializer):
         prompt = serializer.save(user=self.request.user)
-        if settings.DEBUG:
-            from app.core.pipeline import make_photo
-            make_photo(prompt)
-        else:
-            async_task("app.core.pipeline.make_photo", prompt)
+        async_task("app.core.pipeline.make_photo", prompt)
+
+    def get_queryset(self, *args, **kwargs):
+        if type(self.request.user) != AnonymousUser:
+            return Prompt.objects.filter(user=self.request.user)
+        return Prompt.objects.none()
 
 
 __all__ = ['PromptViewSet']

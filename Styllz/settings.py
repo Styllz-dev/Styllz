@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'rest_framework',
+    'knox',
+
     'django_q',
+    'colorfield',
+
     "django_browser_reload",
 
     'web',
@@ -65,6 +69,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'knox.auth.TokenAuthentication',
+    ]
+}
 
 ROOT_URLCONF = 'Styllz.urls'
 
@@ -162,5 +175,6 @@ Q_CLUSTER = {
     'retry': 120,
     'queue_limit': 50,
     'bulk': 10,
-    'orm': 'default'
+    'orm': 'default',
+    'sync': DEBUG,
 }
