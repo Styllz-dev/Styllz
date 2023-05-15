@@ -14,7 +14,11 @@ export class ProfileService {
   get_user(): Profile {
     return this.User;
   }
+  register(user: Profile) {
+    this.User=user;
+  }
   is_registered(): boolean {
+    // @ts-ignore
     return this.User.registered;
   }
   login() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from "../../services/profile.service";
+import { ProfileApiService } from "../../services/api/profile-api.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -8,9 +9,24 @@ import { ProfileService } from "../../services/profile.service";
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit {
-    constructor(public router: Router, public route: ActivatedRoute, public profile: ProfileService) { }
+    constructor(
+        private profile_api: ProfileApiService,
+        public router: Router,
+        public route: ActivatedRoute,
+        public profile: ProfileService) { }
 
   ngOnInit(): void {
+    this.profile_api.get().subscribe(
+        response=>{
+          this.profile.register({
+            username: response.username,
+            registered: response.is_registered,
+            email: response.email
+          })
+        }, error => {
+          console.log(error);
+        }
+    )
   }
 
   is_shown(): boolean {

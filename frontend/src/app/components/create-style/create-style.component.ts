@@ -67,7 +67,9 @@ export class CreateStyleComponent implements OnInit {
   ]
 
 
-  constructor(private stylesApi : StylesApiService, private promptApi : PromptApiService) { }
+  constructor(
+      private stylesApi : StylesApiService,
+      private promptApi : PromptApiService) { }
 
   ngOnInit(): void {
     this.stylesApi.getAll().subscribe(
@@ -131,7 +133,7 @@ export class CreateStyleComponent implements OnInit {
   }
   addClothesItem(index: number): void {
     if (!this.isContainClothesItem(index)) {
-      this.clothes_array.push({id: index, color_scheme: "none"});
+      this.clothes_array.push({clothing: index, color: "none"});
     } else {
       for (let i = 0; i < this.clothes_array.length; ++i)
         if (this.clothes_array[i] == index)
@@ -143,9 +145,7 @@ export class CreateStyleComponent implements OnInit {
       // @ts-ignore
       let value=document.getElementById("input_"+index).value;
       for (let i=0; i<this.clothes_array.length;++i)
-        if(this.clothes_array[i].id==index) this.clothes_array[i].color_scheme=value;
+        if(this.clothes_array[i].clothing==index) this.clothes_array[i].color=value;
     }
   }
-
-  protected readonly document = document;
 }
