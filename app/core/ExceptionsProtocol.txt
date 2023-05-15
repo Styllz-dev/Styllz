@@ -1,0 +1,15 @@
+PhotoMask exceptions:
+01x01_XXXXXXXXXX - Pose exception. Wrong details provided instead of "XXXXXXXXXX" in this order: left_side_vertical, right_side_vertical, left_side_horizontal,
+                        right_side_horizontal, head_horizontal, head_vertical, left_hand, right_hand, left_leg, right_leg.
+01x02a - Photo exception. Not enough space from the top (above the head) or bottom (under the feet) - (Bad top/bottom borders)
+01x02b - Photo exception. Not enough space from the left or/and right side - (Bad left/right borders)
+01x03 - Photo exception. Resolution is under minimum limit.
+
+ImageGeneration exception:
+02x01 - Can't reach ...
+02x02 -
+
+
+RequestErrors:
+03x01 - Inappropriate request (explicit content or smth)
+03x02 -
