@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from app.models import Style, Clothing, Prompt, ClothesPrompt
 from rest_framework import serializers
+from django.core import exceptions
+import django.contrib.auth.password_validation as validators
 
 
 class StyleSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,6 +35,13 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'type', 'image', 'clothes', 'details', 'results', 'error']
         read_only_fields = ['results']
 
+    def create(self, validated_data):
+        clothes = validated_data.pop('clothes')
+        instance = Prompt.objects.create(**validated_data)
+        for element in clothes:
+            ClothesPrompt.objects.get_or_create(prompt=instance, **element)
+        return instance
+
     def get_results(self, prompt: Prompt):
         return [self.context.get('request').build_absolute_uri(result.image.url) for result in prompt.results.all()]
 
@@ -53,3 +62,10 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
         return user
+
+    def validate_password(self, value):
+        try:
+            validators.validate_password(value)
+        except exceptions.ValidationError as exc:
+            raise serializers.ValidationError(list(exc.messages))
+        return value

@@ -17,13 +17,14 @@ Including another URLconf
 from django.urls import include, path
 from app.router import HybridRouter
 from knox import views as knox_views
-from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI
+from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI, ProfileApi
 
 router = HybridRouter()
 router.register(r'styles', StyleViewSet)
 router.register(r'clothes', ClothingViewSet)
 router.register(r'prompts', PromptViewSet, basename="Prompt")
 
+router.add_api_view("profile", ProfileApi.as_view())
 router.add_api_view("register", RegisterAPI.as_view())
 router.add_api_view("login", LoginAPI.as_view())
 router.add_api_view("logout", knox_views.LogoutView.as_view())
