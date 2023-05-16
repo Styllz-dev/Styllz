@@ -63,18 +63,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
         return user
 
-    def validate(self, data):
-        user = User(**data)
-
-        password = data.get('password')
-
-        errors = dict()
+    def validate_password(self, value):
         try:
-            validators.validate_password(password=password, user=user)
-        except exceptions.ValidationError as e:
-            errors['password'] = list(e.messages)
-
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return super(RegisterSerializer, self).validate(data)
+            validators.validate_password(value)
+        except exceptions.ValidationError as exc:
+            raise serializers.ValidationError(list(exc.messages))
+        return value
