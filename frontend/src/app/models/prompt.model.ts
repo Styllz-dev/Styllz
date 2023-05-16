@@ -1,9 +1,10 @@
+import { ClothesColorCombine } from "./clothes-color-combine.model";
+
 export class Prompt {
     id?: number;
     type?: number;
     image?: File;
-    clothes?: number[];
-    colorscheme?: string;
+    clothes?: ClothesColorCombine[];
     details?: string;
     results?: number[];
 }

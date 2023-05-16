@@ -17,7 +17,7 @@ def make_photo_mask(stream: BytesIO) -> Tuple[BytesIO, BytesIO]:
     min_resolution_raw_image = min(x, y)
     if (min_resolution_raw_image > maximum_resolution):
         k = maximum_resolution/min_resolution_raw_image
-        raw_image = raw_image.resize((int(x * k), int(y * k)), Image.ANTIALIAS) # Image compression
+        raw_image = raw_image.resize((int(x * k), int(y * k)), Image.ANTIALIAS)# Image compression
 
     frame = np.asarray(raw_image)
     mp_holistic = mp.solutions.holistic
@@ -87,7 +87,7 @@ def _validate_pose(landmark, left_border, middle, right_border) -> bool:
         return True
     else:
         raise PoseException(
-            f"{left_side_vertical}, {right_side_vertical}, {left_side_horizontal}, {right_side_horizontal}, {head_horizontal}, {head_vertical}, {left_hand}, {right_hand}, {left_leg}, {right_leg}")
+            f"01x01_{int(left_side_vertical)}{int(right_side_vertical)}{int(left_side_horizontal)}{int(right_side_horizontal)}{int(head_horizontal)}{int(head_vertical)}{int(left_hand)}{int(right_hand)}{int(left_leg)}{int(right_leg)}")
 
 
 def _cut_person(frame, right_border, left_border, bottom_border, top_border):
@@ -105,21 +105,21 @@ def _crop_frames(frame, frame_with_hole, landmark, bottom_border, left_border, m
     cropping_top = int((landmark[0].y - presence_x) * frame.shape[1])
     cropping_bottom = int((bottom_border + presence_y) * frame.shape[0])
     if cropping_top < 0 or cropping_bottom > frame.shape[0]:
-        raise PhotoException("Bad top/bottom borders")
+        raise PhotoException("01x02a")
 
     height = cropping_bottom - cropping_top # Height of the quad
 
     if (height < minimum_resolution):
-        raise PhotoException("Resolution is under minimum limit")
+        raise PhotoException("01x03")
 
     half_height = int(height / 2)
     cropping_left = int(middle * frame.shape[1]) - half_height
     cropping_right = cropping_left + height
     if (left_border <= 0 or right_border >= 1):
-        raise PhotoException("Bad left/right borders")
+        raise PhotoException("01x02b")
 
     if cropping_left < 0 or cropping_right > frame.shape[1]:
-        raise PhotoException("Bad left/right borders")
+        raise PhotoException("01x02b")
         # gap = int((height - (cropping_right - cropping_left)) / 2)
         # new_frame = np.zeros((frame.shape[0], frame.shape[1], 4), dtype=np.uint8)
         # new_frame_with_hole = np.zeros((frame.shape[0], frame.shape[1], 4), dtype=np.uint8)

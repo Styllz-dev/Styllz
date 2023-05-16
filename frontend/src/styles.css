@@ -4,25 +4,21 @@ body, p, div, a, h1 {
   padding: 0;
   margin: 0;
 }
+body {
+}
 *::-webkit-scrollbar {
   width: 0;
+  display: none;
 }
 * {
   user-select: none;
 }
+
+
+html, body {
+  height: 100%;
+}
 body {
-  background: linear-gradient(90deg, #333333, #000000);
-  color: #ffffff;
-  fill: transparent;
-  stroke: #ffffff;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-body.chosen {
-  background: linear-gradient(90deg, #333333, #000000);
-  color: #ffffff;
-  fill: transparent;
-  stroke: #ffffff;
-}
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

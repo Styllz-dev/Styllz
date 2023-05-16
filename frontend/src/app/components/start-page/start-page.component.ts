@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Profile } from "../../interface/profile";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProfileService} from "../../services/profile.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import {Clothes} from "../../models/clothes.model";
+import {ClothesApiService} from "../../services/api/clothes-api.service";
 
 @Component({
   selector: 'app-start-page',
@@ -50,9 +50,22 @@ export class StartPageComponent implements OnInit {
     "/static/assets/clothes-images/trousers.png",
     "/static/assets/clothes-images/trousers-with-side-pockets.png",
   ]
-  constructor(public router: Router, public route: ActivatedRoute) { }
+  public clothesIcons:string[] = [];
+  public clothesNames:string[] = [];
+  public card_state = "pack1";
+  constructor(public router: Router, public route: ActivatedRoute, public clothesApi:ClothesApiService) { }
 
   ngOnInit(): void {
+    this.clothesApi.getAll().subscribe(
+        data=>{
+          for (let i=0;i<data.length;++i) {
+            // @ts-ignore
+            this.clothesIcons.push(data[i].icon);
+            // @ts-ignore
+            this.clothesNames.push(data[i].icon);
+          }
+        }
+    )
     addEventListener('scroll', function () {
       // @ts-ignore
       let y = document.getElementById('clothes-array').getBoundingClientRect().y;
@@ -68,7 +81,49 @@ export class StartPageComponent implements OnInit {
     document.getElementById('clothes-array').style.left = y + '%';
   }
 
-  login(): void {
-    this.router.navigate(['/sign-in'])
+  change_card_state(new_state:string): void {
+    if (window.innerWidth >= 600 && new_state!=this.card_state) {
+      // @ts-ignore
+      for (let i = 0; i < document.getElementById(this.card_state).children.length; ++i) {
+        // @ts-ignore
+        document.getElementById(this.card_state).children[i].style.animationName = 'none';
+      }
+
+      // @ts-ignore
+      document.getElementById(new_state).style.display = 'block';
+
+      // @ts-ignore
+      for (let i = 0; i < document.getElementById(new_state).children.length; ++i) {
+        // @ts-ignore
+        document.getElementById(new_state).children[i].style.animationDuration = '1s';
+        // @ts-ignore
+        let left = document.getElementById(new_state).children[i].getBoundingClientRect().x;
+        // @ts-ignore
+        let top = document.getElementById(new_state).children[i].getBoundingClientRect().y;
+        if (left <= window.innerWidth / 2) {
+          // @ts-ignore
+          document.getElementById(new_state).children[i].style.animationName = 'left-in';
+        } else {
+          // @ts-ignore
+          document.getElementById(new_state).children[i].style.animationName = 'right-in';
+        }
+      }
+
+      // @ts-ignore
+      document.getElementById(this.card_state).style.display = 'none';
+      this.card_state = new_state;
+    }
+  }
+
+  check_window_size(): boolean {
+    return window.innerWidth>=600;
+  }
+
+  scroll_container2(): void {
+    window.scrollTo({
+      // @ts-ignore
+      top: document.getElementById('container2').offsetTop,
+      behavior: "smooth"
+    });
   }
 }

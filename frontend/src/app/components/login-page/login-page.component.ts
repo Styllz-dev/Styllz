@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginApiService} from "../../services/api/login.service";
+import {RegisterApiService} from "../../services/api/register.service";
 
 @Component({
   selector: 'app-login-page',

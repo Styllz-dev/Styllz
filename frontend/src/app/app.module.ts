@@ -11,13 +11,16 @@ import { StylesComponent } from './components/styles/styles.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatCheckboxModule } from "@angular/material/checkbox";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from "@angular/forms";
 import { NgOptimizedImage } from "@angular/common";
+// MatModule import
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
     declarations: [
@@ -34,9 +37,6 @@ import { NgOptimizedImage } from "@angular/common";
         BrowserModule,
         HttpClientModule,
         AppRoutingModule,
-        MatSlideToggleModule,
-        MatButtonToggleModule,
-        MatCheckboxModule,
         BrowserAnimationsModule,
         FontAwesomeModule,
         FormsModule,
@@ -45,6 +45,12 @@ import { NgOptimizedImage } from "@angular/common";
             cookieName: 'csrftoken',
             headerName: 'X-CSRFToken',
         }),
+        // Mat Module Import
+        MatSlideToggleModule,
+        MatButtonToggleModule,
+        MatCheckboxModule,
+        MatProgressBarModule,
+        MatIconModule,
     ],
   providers: [],
   bootstrap: [ AppComponent ]

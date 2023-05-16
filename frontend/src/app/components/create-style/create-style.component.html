@@ -1,34 +1,70 @@
-<div class="aside">
-  <div class="left">
-    <div class="image-chose-section">
-      <div *ngIf="!imageUrl" class="image-input" >
-        <input (change)="onFileSelected($event)" class="input1" type="file" accept="image/*" title=" " placeholder="" id="image-input"/>
-        <a>Choose your file</a>
-      </div>
-      <div *ngIf="imageUrl">
-        <img [src]="imageUrl" alt="Selected Image">
-      </div>
-    </div>
-    <div class="delete-img" *ngIf="imageUrl" (click)="imageUrl = ''">
-      <p>another image</p>
-    </div>
-  </div>
+<div class="content items-center">
+    <p class="main__text">Make your style</p>
+    <p class="little__text">Fill form fields to go to next step</p>
+    <form id="msform">
+        <!-- progressbar -->
+        <ul id="progressbar">
+            <li *ngFor="let text of this.progressbar_texts; index as i" (click)="go(i+1)" [class.current]="progressbar_status==i+1" [class.active]="progressbar_status>=i+1">
+                <div class="container">
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                </div>
+                <p class="progressbar-text">{{text}}</p>
+            </li>
+        </ul>
+    </form>
 
-  <div class="right" id="right-aside">
-    <div class="post-container">
-      <div class="name-div">
-        <p class="name-text">Name</p>
-        <input class="name-input" type="text" [(ngModel)]="name">
-      </div>
-      <div (click)="create_style()" [class.chosen]="is_all_chosen()" class="done-button">
-        <p>Create style</p>
-      </div>
-    </div>
+    <div id="fieldset">
+        <span class="name">
+            <p class="header">{{pages_names[progressbar_status]}}:</p>
+            <p class="text">Step {{progressbar_status}}/{{pages_count}}</p>
+        </span>
+        <div *ngIf="progressbar_status==1" id="photo">
+            <span class="input">
+                <p>Upload your photo</p>
+                <div class="photo-input"><input (change)="onFileSelected($event)" type="file" accept="image/*" title=" " placeholder="" id="image-input"/></div>
+            </span>
+        </div>
+        <div *ngIf="progressbar_status==2" id="style">
+            <span class="input">
+                <p>Choose your style</p>
+                <div class="style-container">
+                    <div *ngFor="let i of this.styles_list_to_display" [class.active]="chosen_style==i" (click)="chosen_style=i" class="style-card"><p>{{i.name}}</p></div>
+                </div>
+            </span>
+        </div>
+        <div *ngIf="progressbar_status==3" id="clothes">
+            <span class="input">
+                <p>Choose your clothes and color it</p>
+                <div class="container">
+                    <div class="clothes-image-card" [class.active]="isContainClothesItem(i)" *ngFor="let clothes of this.clothes_list_to_display; index as i">
+                        <img (click)="addClothesItem(i)" id="clothes_{{i}}" class="clothes-image" [src]="clothes">
+                        <input (input)="updateClothesImage(i);" id="input_{{i}}" type="color" class="clothes-color-input">
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div *ngIf="progressbar_status==4" id="details">
+            <span class="input">
+                <textarea id="details-textarea"></textarea>
+            </span>
+        </div>
+        <div *ngIf="progressbar_status==5" id="get-images">
+            <span class="input">
+            </span>
+        </div>
+        <div *ngIf="progressbar_status==6" id="post-images">
+            <span class="input">
 
-    <div class="styles-container">
-      <div [class.chosen]="chosen_style === style" [class.unchosen]="chosen_style !== style && chosen_style" (click)="chosen_style === style? chosen_style = undefined : chosen_style = style" class="styles-list" *ngFor="let style of styles">
-        <p>{{style.name}}</p>
-      </div>
+            </span>
+        </div>
+
+        <div class="move">
+            <input (click)="progressbar_status=progressbar_status-1" type="button" id="prev-button" *ngIf="progressbar_status!=1" value="Previous"/>
+            <input (click)="progressbar_status=progressbar_status+1" type="button" id="next-button" *ngIf="progressbar_status!=6&&progressbar_status!=4" value="Next"/>
+            <input (click)="finish()" type="button" id="submit-button" *ngIf="progressbar_status==6" value="Submit"/>
+            <input (click)="post()" type="button" id="repost-button" *ngIf="progressbar_status==5" value="Remake"/>
+            <input (click)="create_style(); progressbar_status=progressbar_status+1" type="button" id="post-button" *ngIf="progressbar_status==4" value="Get images"/>
+        </div>
     </div>
-  </div>
 </div>

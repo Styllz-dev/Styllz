@@ -1,156 +1,287 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-.aside {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: row;
+p { margin: 0; }
+
+.content {
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
 }
-@media screen and (max-width: 1050px) {
-  .aside {
+.items-center {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+#msform {
+    box-sizing: border-box;
+    width: min(600px, 100%);
+    padding: 0 20px 0 20px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.main__text {
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    margin: 0;
+    line-height: 100%;
+}
+.little__text {
+    color: lightgrey;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    margin: 10px 0 30px 0;
+    line-height: 100%;
+}
+
+ul {
+    padding: 0;
+}
+#progressbar li {
+    transition-duration: 300ms;
+
+    float: left;
+    list-style-type: none;
+    width: calc(100%/6);
+    height: 50px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    grid-row-gap: 5px;
+}
+#progressbar li .container {
+    width: 100%;
+    height: 30px;
+    color: lightgrey;
+
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d5d5d5;
+}
+.line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #d5d5d5;
+}
+#progressbar li.active .container p {
+    color: #460ae5;
+}
+#progressbar li.current .container .circle {
+    width: 30px;
+    height: 30px;
+}
+#progressbar li.active .container .circle,
+#progressbar li.active .container .line{
+    background: #460ae5;
+}
+.progressbar-text {
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Raleway', sans-serif;
+    line-height: 100%;
+    margin: 0;
+}
+
+#fieldset {
+    width: min(600px, 100%);
+    height: 600px;
+}
+#fieldset .name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+#fieldset .name .header {
+    font-size: 25px;
+    font-weight: 600;
+}
+#fieldset .name .text {
+    font-size: 25px;
+    font-weight: 600;
+    color: lightgrey;
+}
+
+.input p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* fieldset parts */
+.photo-input {
+    width: 100%;
+    background: lightgrey;
+    box-sizing: border-box;
+    padding: 5px 0 5px 10px;
+}
+.photo-input input {
+    font-size: 15px;
+}
+
+.style-container {
+    display: flex;
     flex-wrap: wrap;
-  }
+    flex-direction: row;
+    grid-row-gap: 15px;
+    grid-column-gap: 30px;
+}
+.style-card {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px 5px 10px;
+
+    color: #2196F3;
+    background: transparent;
+
+    border: #2196F3 solid 2px;
+    border-radius: 10px;
+}
+.style-card p {
+    line-height: 100%;
+    font-size: 20px;
+    margin: 0;
+}
+.style-card.active {
+    color: #FFFFFF;
+    background: #2196F3;
 }
 
-.post-container {
-  display: flex;
-  align-content: flex-end;
-  flex-direction: row;
-  align-items: flex-end;
+.clothes-color-input {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1000;
 
-  grid-column-gap: 30px;
+    padding: 0;
 
-  width: 100%;
-  margin-top: 30px;
-  margin-left: 30px;
-  margin-bottom: 30px;
+    -webkit-appearance: none;
+    border: none;
+    overflow: hidden;
+    outline: none;
+    cursor: inherit;
 }
-.name-input {
-  max-width: 300px;
-  width: 280px;
-  height: 40px;
-  border: 0;
-  padding: 0 0 0 20px;
-  line-height: 100%;
-  font-family: 'Raleway', sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.13em;
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
-.name-input:active, :focus, :hover {
-  outline: none;
-  outline-offset: 0;
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
 }
-.name-text {
-  margin-bottom: 3px;
-  margin-left: 10px;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
+#clothes span .container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    grid-row-gap: 15px;
+    grid-column-gap: 30px;
 }
-.done-button {
-  background-color: #aaa;
-  border-color: #aaa;
+.clothes-image-card {
+    position: relative;
 
-  width: auto;
-  min-width: 200px;
-  height: 40px;
-  line-height: 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
-  font-size: .75rem;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+    width: fit-content;
+    height: fit-content;
+    border: 2px solid #2196F3;
+    border-radius: 3px;
+    padding: 20px 10px 5px;
 }
-.done-button.chosen {
-  background: #1f74e5;
+.clothes-image {
+    width: 100px;
+    filter: brightness(10);
 }
-
-.styles-list {
-  width: auto;
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 20px;
-  background: none;
-  line-height: 40px;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0 30px 0 30px;
-
-  transition-duration: 800ms;
-
-  text-transform: capitalize
+.clothes-image-card.active {
+    background: lightgrey;
+    border-color: lightgrey;
 }
-.styles-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-
-  grid-column-gap: 20px;
-  grid-row-gap: 15px;
-  margin-left: 20px;
-  margin-bottom: 40px;
-}
-div.chosen {
-  border: 1px solid #1f74e5;
-  color: white;
-  background: #1f74e5;
-}
-div.unchosen {
-  border: 1px solid #aaa;
-  color: #aaa;
+.clothes-image-card.active .clothes-image {
+    filter: hue-rotate(0deg);
 }
 
-.image-chose-section {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  height: 400px;
-  width: 360px;
-  border-radius: 5px;
-
-  outline-offset: 0;
-  outline: none;
-
-  border: 1px solid #1f74e5;
-  padding: 0;
+#details-textarea {
+    width: 100%;
+    height: 300px;
+    background: lightgrey;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
 }
-.image-chose-section img {
-  max-height: 400px;
-  max-width: 360px;
-  margin-top: 5px;
+#details-textarea:focus,
+#details-textarea:active,
+#details-textarea:hover {
+    outline: 0;
+    outline-offset: 0;
 }
-.image-input {
-  position: relative;
-  width: 200px;
-  height: 40px;
+/* buttons to navigate in fieldsets */
+.move {
+    margin-top: 50px;
+    float: right;
+}
+#prev-button {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+}
+#prev-button:hover {
+    background-color: #171717
+}
 
-  line-height: 40px;
+#next-button,
+#submit-button,
+#repost-button,
+#post-button {
+    width: 100px;
+    background: #673AB7;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 5px;
+    float: right
+}
 
-  background: #1f74e5;
-  border-radius: 8px;
-}
-.input1 {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-}
-.delete-img {
-  margin-top: 10px;
-  font-size: 20px;
-  text-decoration: underline;
-}
-.left {
-  margin-left: 30px;
+#next-button:hover,
+#submit-button:hover,
+#repost-button:hover,
+#post-button:hover {
+    background-color: #311B92
 }
