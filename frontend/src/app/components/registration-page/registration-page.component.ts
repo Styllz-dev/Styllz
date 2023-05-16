@@ -41,9 +41,9 @@ export class RegistrationPageComponent implements OnInit {
 
   login(): void {
     // @ts-ignore
-    var username=document.getElementById('registration-name').value;
+    var username=document.getElementById('login-name').value;
     // @ts-ignore
-    var password=document.getElementById('registration-password2').value;
+    var password=document.getElementById('login-password').value;
 
     const data: UserLogin = {
       username: username,
@@ -52,11 +52,17 @@ export class RegistrationPageComponent implements OnInit {
 
     this.login_service.create(data).subscribe(
         response=> {
-          console.log(response);
+          this.profile.register({
+            username: username,
+            registered: true,
+            email: "",
+          })
         }, error => {
           console.log(error);
         }
     )
+
+    this.router.navigate(['']);
   }
   register(): void {
     // @ts-ignore
