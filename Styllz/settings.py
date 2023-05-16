@@ -79,6 +79,10 @@ REST_FRAMEWORK = {
     ]
 }
 
+REST_KNOX = {
+    "USER_SERIALIZER": "app.serializers.UserSerializer"
+}
+
 ROOT_URLCONF = 'Styllz.urls'
 
 TEMPLATES = [
@@ -134,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 

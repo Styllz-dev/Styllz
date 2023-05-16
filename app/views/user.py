@@ -1,10 +1,22 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, views
 from rest_framework.response import Response
 from knox.models import AuthToken
 from app.serializers import UserSerializer, RegisterSerializer
 from django.contrib.auth import login
+from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
+
+
+class ProfileApi(views.APIView):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if type(user) == AnonymousUser:
+            data = {}
+        else:
+            data = UserSerializer(user).data
+
+        return Response(data)
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -33,4 +45,4 @@ class LoginAPI(KnoxLoginView):
         return super(LoginAPI, self).post(request, format=format)
 
 
-__all__ = ['RegisterAPI', 'LoginAPI']
+__all__ = ['ProfileApi', 'RegisterAPI', 'LoginAPI']
