@@ -18,7 +18,7 @@ class IsOwner(permissions.BasePermission):
 class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = PromptSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def perform_create(self, serializer):
         prompt = serializer.save(user=self.request.user)

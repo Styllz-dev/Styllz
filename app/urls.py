@@ -16,8 +16,7 @@ Including another URLconf
 """
 from django.urls import include, path
 from app.router import HybridRouter
-from knox import views as knox_views
-from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI, ProfileApi
+from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI, ProfileApi, LogoutApi
 
 router = HybridRouter()
 router.register(r'styles', StyleViewSet)
@@ -27,11 +26,9 @@ router.register(r'prompts', PromptViewSet, basename="Prompt")
 router.add_api_view("profile", ProfileApi.as_view())
 router.add_api_view("register", RegisterAPI.as_view())
 router.add_api_view("login", LoginAPI.as_view())
-router.add_api_view("logout", knox_views.LogoutView.as_view())
+router.add_api_view("logout", LogoutApi.as_view())
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('login/', LoginAPI.as_view(), name='login'),
-    path('logout/', knox_views.LogoutView.as_view(), name='logout'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
