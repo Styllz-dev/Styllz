@@ -11,7 +11,7 @@ import openai
 
 
 def _make_prompt(prompt: Prompt) -> str:
-    return f"Person dressed in {format_params(prompt.colorscheme, '{} colorscheme ')}{format_params(prompt.details, '{} ')} {prompt.type} style{format_params(''.join(map(str, prompt.clothes.all())), ' with: {}')}."
+    return f"Person dressed in {format_params(prompt.details, '{} ')} {prompt.type} style{format_params(''.join(map(str, prompt.clothes.all())), ' with: {}')}."
 
 
 def dress(original: BytesIO, mask: BytesIO, prompt: Prompt) -> models.QuerySet[Result]:
