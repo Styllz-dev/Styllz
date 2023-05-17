@@ -97,6 +97,7 @@ export class CreateStyleComponent implements OnInit {
         }
       }
 
+      console.log(formData);
       this.promptApi.create(formData).subscribe(
           response => {
             console.log(response)
@@ -116,6 +117,9 @@ export class CreateStyleComponent implements OnInit {
 
   go(id: number): void {
     this.progressbar_status=id;
+  }
+  out() {
+    console.log(this.image, this.imageUrl)
   }
   finish(): void {
     // TODO сделать
