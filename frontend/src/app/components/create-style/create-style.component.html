@@ -61,7 +61,7 @@
 
         <div class="move">
             <input (click)="progressbar_status=progressbar_status-1" type="button" id="prev-button" *ngIf="progressbar_status!=1" value="Previous"/>
-            <input (click)="progressbar_status=progressbar_status+1" type="button" id="next-button" *ngIf="progressbar_status!=6&&progressbar_status!=4" value="Next"/>
+            <input (click)="progressbar_status=progressbar_status+1; out()" type="button" id="next-button" *ngIf="progressbar_status!=6&&progressbar_status!=4" value="Next"/>
             <input (click)="finish()" type="button" id="submit-button" *ngIf="progressbar_status==6" value="Submit"/>
             <input (click)="post()" type="button" id="repost-button" *ngIf="progressbar_status==5" value="Remake"/>
             <input (click)="create_style(); progressbar_status=progressbar_status+1" type="button" id="post-button" *ngIf="progressbar_status==4" value="Get images"/>
