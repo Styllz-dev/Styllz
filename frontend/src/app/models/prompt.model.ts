@@ -6,5 +6,6 @@ export class Prompt {
     image?: File;
     clothes?: ClothesColorCombine[];
     details?: string;
-    results?: number[];
+    results?: string[];
+    error?: string;
 }

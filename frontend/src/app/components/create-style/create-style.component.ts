@@ -127,7 +127,7 @@ export class CreateStyleComponent implements OnInit {
 
   isContainClothesItem(index: number): boolean {
     for (let i=0;i<this.clothes_array.length;++i)
-      if(this.clothes_array[i]==index)
+      if(this.clothes_array[i].clothing==index)
         return true;
     return false;
   }
@@ -136,7 +136,7 @@ export class CreateStyleComponent implements OnInit {
       this.clothes_array.push({clothing: index, color: "none"});
     } else {
       for (let i = 0; i < this.clothes_array.length; ++i)
-        if (this.clothes_array[i] == index)
+        if (this.clothes_array[i].clothing == index)
           this.clothes_array.splice(i, 1);
     }
   }

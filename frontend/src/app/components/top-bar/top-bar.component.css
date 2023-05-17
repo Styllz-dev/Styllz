@@ -20,6 +20,11 @@
 }
 
 #name {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
   cursor: pointer;
 
   font-size: 40px;
@@ -27,7 +32,6 @@
   font-weight: bolder;
 
   line-height: 100px;
-
 }
 
 ul {

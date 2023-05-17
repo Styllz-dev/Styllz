@@ -25,22 +25,7 @@ export class TopBarComponent implements OnInit {
       public profile: ProfileService) { }
 
   ngOnInit(): void {
-    this.profile_api.get().subscribe(
-        response=> {
-          console.log(response);
-          this.profile.register({
-            username: response.username,
-            registered: true,
-            email: response.email
-          })
-        }, error => {
-          console.log(error);
-        }
-    )
-
-    this.user=this.profile.get_user();
-    console.log(this.profile.get_user())
-    console.log(this.user)
+    this.update_account();
   }
 
   is_shown(): boolean {
@@ -59,23 +44,47 @@ export class TopBarComponent implements OnInit {
   }
 
   go(link: string): void {
-    // @ts-ignore
-    document.getElementById('profile-details').open=false;
+    try {
+      // @ts-ignore
+      document.getElementById('profile-details').open = false;
+    } catch (exc) {
+      console.log(exc);
+    }
     this.router.navigate([link]);
   }
 
-  login(): void {
-    this.profile.login();
+  out_user() {
+    console.log(this.user);
   }
 
   logout() {
-    console.log(this.user);
-    this.logout_api.get().subscribe(
+    const data="";
+    this.logout_api.post(data).subscribe(
         response=> {
-          console.log(response);
+          this.profile.logout();
+          this.user=this.profile.get_user();
         }, error=> {
-          console.log(error);
         }
     )
+
+    // @ts-ignore
+    document.getElementById('profile-details').open=false;
+  }
+  update_account(): void {
+    this.profile_api.get().subscribe(
+        response=> {
+          console.log(response);
+          if(response!=null) {
+            this.profile.register({
+              username: response.username,
+              registered: true,
+              email: response.email
+            })
+          }
+        }, error => {
+        }
+    )
+
+    this.user=this.profile.get_user();
   }
 }

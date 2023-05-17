@@ -19,6 +19,13 @@ export class ProfileService {
     this.User.username=user.username;
     this.User.email=user.email;
   }
+  logout() {
+    this.User={
+      registered: false,
+      username: undefined,
+      email: undefined
+    }
+  }
   is_registered(): boolean {
     // @ts-ignore
     return this.User.registered;

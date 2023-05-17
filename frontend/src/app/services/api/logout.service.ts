@@ -13,7 +13,7 @@ export class LogoutService {
 
   constructor(private http: HttpClient) { }
 
-  get(): Observable<any> {
-    return this.http.get(`${baseUrl}/`);
+  post(data:any): Observable<any> {
+    return this.http.post(`${baseUrl}/`,data);
   }
 }

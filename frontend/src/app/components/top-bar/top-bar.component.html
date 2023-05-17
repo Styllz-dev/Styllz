@@ -1,14 +1,22 @@
 <header id="main-header">
+  <p (click)="go('')" id="name">Sty<b style="color: #000aff;">ll</b>z</p>
 <!--  для большого экрана-->
   <ul id="big-screen-1" class="table1">
     <li (click)="go('/create-style')" style="display: inline-block;">
       <a>create style</a>
     </li>
+    <li (click)="out_user()" style="display: inline-block;">
+      <a>show user</a>
+    </li>
   </ul>
-  <p (click)="go('')" id="name">Sty<b style="color: #000aff;">ll</b>z</p>
+  <ul *ngIf="router.url != '/sign-in' && !profile.is_registered()" id="big-screen-2" class="table2">
+    <li>
+      <button (click)="go('/sign-in')" class="button3">get started</button>
+    </li>
+  </ul>
 
 <!--  выездное меню-->
-  <details id="profile-details">
+  <details *ngIf="this.user.registered" id="profile-details">
     <summary class="button2"></summary>
     <div class="profile-container">
       <div class="padding-x-20" id="user-information">
@@ -51,4 +59,5 @@
     <button (click)="go('/sign-in')" *ngIf="router.url != '/sign-in' && !profile.is_registered()" class="small-screen-div">Log in</button>
   </form>
 </header>
+
 
