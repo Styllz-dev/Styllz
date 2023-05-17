@@ -27,7 +27,7 @@ class ClothesPromptSerializer(serializers.HyperlinkedModelSerializer):
 
 class PromptSerializer(serializers.HyperlinkedModelSerializer):
     type = serializers.PrimaryKeyRelatedField(queryset=Style.objects.all())
-    clothes = ClothesPromptSerializer(many=True)
+    clothes = ClothesPromptSerializer(required=False, many=True)
     results = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,7 +36,10 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ['results']
 
     def create(self, validated_data):
-        clothes = validated_data.pop('clothes')
+        if 'clothes' in validated_data:
+            clothes = validated_data.pop('clothes')
+        else:
+            clothes = []
         instance = Prompt.objects.create(**validated_data)
         for element in clothes:
             ClothesPrompt.objects.get_or_create(prompt=instance, **element)
