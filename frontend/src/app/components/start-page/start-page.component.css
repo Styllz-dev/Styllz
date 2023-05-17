@@ -40,6 +40,7 @@
     align-content: center;
     align-items: center;
 
+    border: 0;
     width: 100%;
     position: relative;
     --height: 3rem;
@@ -48,11 +49,11 @@
     font-size: min(2.4vw, 25px);
     margin: 0;
 
-    border:0;
     overflow: hidden;
     background: transparent;
+
 }
-.header__button div {
+.header__button .div-collide div {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -68,25 +69,33 @@
     height: var(--height);
     align-content: center;
     position: absolute;
+
+    border: 1px solid rgba(183, 0, 255, 1);
+    border-image: linear-gradient(to left top, rgba(59, 0, 255, 1), rgba(183, 0, 255, 1));
+    border-image-slice: 1;
+}
+.div-collide {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 .header__button--top {
     top:0;
     background: transparent;
-    border: 1px solid rgba(183, 0, 255, 1);
-    border-image: linear-gradient(to left top, rgba(59, 0, 255, 1), rgba(183, 0, 255, 1));
-    border-image-slice: 1;
-    border-radius: 10px;
 }
 .header__button--bottom {
     transform: rotateX(-90deg);
     top: calc(0.5*var(--height));
     background: linear-gradient(-45deg,rgba(59, 0, 255, 1),rgba(183, 0, 255, 1));
 }
-.header__button:hover .header__button--bottom {
+.header__button .div-collide:hover .header__button--bottom {
     transform: rotateX(0deg);
     top: 0;
 }
-.header__button:hover .header__button--top {
+.header__button .div-collide:hover .header__button--top {
     transform: rotateX(90deg);
     top: calc(-0.5*var(--height));
 }

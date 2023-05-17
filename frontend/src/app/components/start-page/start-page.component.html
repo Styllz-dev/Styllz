@@ -3,9 +3,11 @@
         <p class="header__main">Make your own style</p>
         <p class="header__text">free style development tool</p>
         <p class="header__text">works right in browser</p>
-        <button (click)="scroll_container2()" class="header__button">
-            <div class="header__button--top"><a>Learn more</a></div>
-            <div class="header__button--bottom"><a>Learn more</a></div>
+        <button class="header__button">
+            <div class="div-collide" (click)="scroll_container2()">
+                <div class="header__button--top"><a>Learn more</a></div>
+                <div class="header__button--bottom"><a>Learn more</a></div>
+            </div>
         </button>
 
         <div *ngIf="check_window_size()" id="pack1">

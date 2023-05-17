@@ -1,3 +1,5 @@
+* { box-sizing: border-box; }
+
 #main-header {
   position: absolute;
   display: flex;
@@ -26,7 +28,6 @@
 
   line-height: 100px;
 
-  margin-left: 40px;
 }
 
 ul {
@@ -75,28 +76,6 @@ ul li a {
 }
 .table2 button {
   margin-top: 0;
-}
-
-.button2 {
-  width: auto;
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 20px;
-  background: none;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0 30px 0 30px;
-
-  transition-duration: 200ms;
-}
-.button2:hover {
-  border-color: #002ec7;
-  color: #002ec7;
-  transition-duration: 200ms;
 }
 
 #small-screen {
@@ -205,30 +184,78 @@ ul li a {
   }
 }
 
-/* Container around content */
+.button3 {
+  width: auto;
+  height: 40px;
+
+  border: 1px solid #1f74e5;
+  color: #1f74e5;
+  border-radius: 20px;
+  background: none;
+
+  font-size: 18px;
+  font-family: "Bitstream Charter", sans-serif;
+
+  padding: 0 30px 0 30px;
+
+  transition-duration: 200ms;
+}
+.button3:hover {
+  border-color: #002ec7;
+  color: #002ec7;
+  transition-duration: 200ms;
+}
+.button2 {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #1f74e5;
+  color: #1f74e5;
+  border-radius: 50%;
+  background: none;
+
+  font-size: 18px;
+  font-family: "Bitstream Charter", sans-serif;
+
+  padding: 0;
+
+  transition-duration: 200ms;
+}
+.button2:hover {
+  border-color: #002ec7;
+  color: #002ec7;
+  transition-duration: 200ms;
+}
 .button2 {
   position: relative;
 }
-#profile-icon {
-  transform: rotate(90deg);
-  transition-duration: 800ms;
-  line-height: 40px;
-
-  position: absolute;
-  left: 15px;
-  top: 10.5px;
+.button2::marker {
+  content: "";
 }
+
+/* Container around content */
 .profile-container {
+  margin-right: 10px;
+  padding: 10px 0 5px;
+  border-radius: 5px;
   width: 200px;
-  height: 0;
+  height: fit-content;
 
   position: absolute;
+  box-sizing: border-box;
 
   background: white;
+  color: black;
   overflow: hidden;
 
-  transition-duration: 800ms;
-  transition-property: height;
+  transition: height 800ms;
+}
+.profile-container div{
+  width: 100%;
+  box-sizing: border-box;
+}
+.profile-name {
+  font-size: 18px;
 }
 .content {
   margin-top: 20px;
@@ -236,4 +263,39 @@ ul li a {
   color: #9B9B9B;
   font-family: "Bitstream Charter", sans-serif;
 
+}
+
+
+#user-information {
+}
+.no-underline { text-decoration: none!important; }
+.d-block { display: block!important; }
+.user-profile-link {
+  font-size: 16px;
+  line-height: 120%;
+}
+.new-line {
+  width: 100%;
+  display: block;
+  vertical-align: top;
+}
+.line-divider {
+  padding: 0;
+  width: 100%;
+  height: 1px;
+  background: #7e7e7e;
+  margin: 10px 0;
+}
+.profile-item {
+
+}
+.height-fit { height: fit-content; }
+.f-s15 { font-size: 15px; }
+.padding-x-20 { padding-right: 20px; padding-left: 20px; }
+.padding-x-10 { padding-right: 10px; padding-left: 10px; }
+.padding-y-5 { padding-top: 5px; padding-bottom: 5px; }
+
+.profile-item:hover {
+  background: #1f74e5;
+  color: white;
 }

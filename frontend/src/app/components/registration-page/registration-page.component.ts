@@ -74,7 +74,9 @@ export class RegistrationPageComponent implements OnInit {
     // @ts-ignore
     var password2=document.getElementById('registration-password2').value;
 
-    if (password2==password1) {
+    //TODO сделать ограничение на кол-во символов в нике 16
+    if (password2==password1
+        &&('a'<=username[0]&&username[0]<='z')) {
       const data: UserRegister = {
         username: username,
         email: email,

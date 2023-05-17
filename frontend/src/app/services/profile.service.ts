@@ -15,7 +15,9 @@ export class ProfileService {
     return this.User;
   }
   register(user: Profile) {
-    this.User=user;
+    this.User.registered=true;
+    this.User.username=user.username;
+    this.User.email=user.email;
   }
   is_registered(): boolean {
     // @ts-ignore

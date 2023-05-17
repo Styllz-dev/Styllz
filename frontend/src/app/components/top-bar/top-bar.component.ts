@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from "../../services/profile.service";
 import { ProfileApiService } from "../../services/api/profile-api.service";
+import {Profile} from "../../interface/profile";
+import {Logout} from "../../models/logout.model";
+import {LogoutService} from "../../services/api/logout.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -9,24 +12,35 @@ import { ProfileApiService } from "../../services/api/profile-api.service";
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit {
-    constructor(
-        private profile_api: ProfileApiService,
-        public router: Router,
-        public route: ActivatedRoute,
-        public profile: ProfileService) { }
+  public user: Profile={
+    username: "",
+    email: "",
+    registered: true,
+  };
+  constructor(
+      private logout_api: LogoutService,
+      private profile_api: ProfileApiService,
+      public router: Router,
+      public route: ActivatedRoute,
+      public profile: ProfileService) { }
 
   ngOnInit(): void {
     this.profile_api.get().subscribe(
-        response=>{
+        response=> {
+          console.log(response);
           this.profile.register({
             username: response.username,
-            registered: response.is_registered,
+            registered: true,
             email: response.email
           })
         }, error => {
           console.log(error);
         }
     )
+
+    this.user=this.profile.get_user();
+    console.log(this.profile.get_user())
+    console.log(this.user)
   }
 
   is_shown(): boolean {
@@ -43,24 +57,10 @@ export class TopBarComponent implements OnInit {
       document.getElementById('small-screen-form').style.height = '0'
     }
   }
-  show_profile_form(): void {
-    // @ts-ignore
-    let height = document.getElementById('profile-form').style.height;
-    if (height === '0px' || height === '0' || height === '') {
-      // @ts-ignore
-      document.getElementById('profile-form').style.height = '200px';
-      // @ts-ignore
-      document.getElementById("profile-icon").style.transform = 'rotate(0deg)'
-    } else {
-      // @ts-ignore
-      document.getElementById('profile-form').style.height = '0';
-      // @ts-ignore
-      document.getElementById("profile-icon").style.transform = 'rotate(90deg)'
-
-    }
-  }
 
   go(link: string): void {
+    // @ts-ignore
+    document.getElementById('profile-details').open=false;
     this.router.navigate([link]);
   }
 
@@ -68,6 +68,14 @@ export class TopBarComponent implements OnInit {
     this.profile.login();
   }
 
-  out() {
+  logout() {
+    console.log(this.user);
+    this.logout_api.get().subscribe(
+        response=> {
+          console.log(response);
+        }, error=> {
+          console.log(error);
+        }
+    )
   }
 }
