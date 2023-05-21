@@ -3,18 +3,26 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 from app.serializers import UserSerializer, RegisterSerializer
 from django.contrib.auth import login, logout
-from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
 from rest_framework.settings import api_settings
 from rest_framework import status
 
 
-class ProfileApi(views.APIView):
+class ProfileApi(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
-        return Response(UserSerializer(request.user).data)
+        return Response(self.get_serializer(request.user).data)
+
+    def post(self, request):
+        user = request.user
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegisterAPI(generics.GenericAPIView):
