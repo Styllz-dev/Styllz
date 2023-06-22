@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { ProfileService } from "../../services/profile.service";
-import { ProfileApiService } from "../../services/api/profile-api.service";
-import {Profile} from "../../interface/profile";
-import {Logout} from "../../models/logout.model";
-import {LogoutService} from "../../services/api/logout.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-top-bar',
@@ -12,79 +7,50 @@ import {LogoutService} from "../../services/api/logout.service";
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit {
-  public user: Profile={
-    username: "",
-    email: "",
-    registered: true,
-  };
+
   constructor(
-      private logout_api: LogoutService,
-      private profile_api: ProfileApiService,
       public router: Router,
       public route: ActivatedRoute,
-      public profile: ProfileService) { }
+  ) { }
 
   ngOnInit(): void {
-    this.update_account();
   }
 
-  is_shown(): boolean {
+  open_menu() {
     // @ts-ignore
-    return document.getElementById('small-screen-form').style.height === 'calc(100vh - 100px)';
+    document.getElementById('dop-menu').style.display='block';
+    // @ts-ignore
+    document.getElementById('menu').style.left='0';
+    // @ts-ignore
+    document.getElementById('dop-menu').style.background='rgba(0,0,0,50%)';
   }
-  show(): void {
+  close_menu() {
     // @ts-ignore
-    if (document.getElementById('small-screen-form').style.height === '0px' || document.getElementById('small-screen-form').style.height === '') {
-      // @ts-ignore
-      document.getElementById('small-screen-form').style.height = 'calc(100vh - 100px)';
-    } else {
-      // @ts-ignore
-      document.getElementById('small-screen-form').style.height = '0'
+    document.getElementById('menu').style.left='calc(-1*var(--width))';
+    // @ts-ignore
+    document.getElementById('dop-menu').style.background='transparent';
+    // @ts-ignore
+    document.getElementById('dop-menu').style.display='none';
+
+  }
+
+  go(link:string) {
+    if(link[0]!='/') {
+      this.router.navigate(['/']);
+      window.scrollTo({
+        // @ts-ignore
+        top: document.getElementById(link).offsetTop,
+        behavior: "smooth"
+      })
     }
+    else
+      this.router.navigate([link]);
+    this.close_menu();
   }
-
-  go(link: string): void {
-    try {
-      // @ts-ignore
-      document.getElementById('profile-details').open = false;
-    } catch (exc) {
-      console.log(exc);
-    }
-    this.router.navigate([link]);
-  }
-
-  out_user() {
-    console.log(this.user);
-  }
-
-  logout() {
-    const data="";
-    this.logout_api.post(data).subscribe(
-        response=> {
-          this.profile.logout();
-          this.user=this.profile.get_user();
-        }, error=> {
-        }
-    )
-
+  check(link: string):boolean {
     // @ts-ignore
-    document.getElementById('profile-details').open=false;
-  }
-  update_account(): void {
-    this.profile_api.get().subscribe(
-        response=> {
-          console.log(response);
-          if(response!=null) {
-            this.profile.register({
-              username: response.username,
-              registered: true,
-              email: response.email
-            })
-          }
-        }, error => {
-        }
-    )
-
-    this.user=this.profile.get_user();
+    if(window.scrollY>=document.getElementById(link).offsetTop&&window.scrollY<=document.getElementById(link).offsetTop+document.getElementById(link).offsetHeight)
+      return true;
+    return false;
   }
 }

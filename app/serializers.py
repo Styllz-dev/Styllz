@@ -40,6 +40,7 @@ class PromptSerializer(serializers.HyperlinkedModelSerializer):
             clothes = validated_data.pop('clothes')
         else:
             clothes = []
+        print(validated_data)
         instance = Prompt.objects.create(**validated_data)
         for element in clothes:
             ClothesPrompt.objects.get_or_create(prompt=instance, **element)
