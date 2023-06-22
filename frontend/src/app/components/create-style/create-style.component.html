@@ -12,13 +12,16 @@
                 <div class="style-text"><p>Clothes Style</p></div>
                 <div class="style-images-container">
                     <div class="style-image" *ngFor="let link of styles; index as i">
-                        <img (click)="chose_img(i)" [class.chosen]="this.chosen_image==i" [src]="link">
+                        <img (click)="chose_img(i)" [class.chosen]="this.chosen_style==i" [src]="link">
                         <p class="styles-image-text">{{this.styles_text[i]}}</p>
                     </div>
                 </div>
             </div>
             <div (click)="create()" [class.chosen]="is_all_chosen()" class="create-style-button flex align-center just-center">Create</div>
         </div>
-        <div class="box view-style"></div>
+        <div class="box viewer">
+            <img *ngIf="images_to_display!=undefined&&images_to_display.length>0" [src]="images_to_display[0]">
+            <div *ngIf="images_to_display!=undefined&&this.images_to_display.length==0"></div>
+        </div>
     </div>
 </main>

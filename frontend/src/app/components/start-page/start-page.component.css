@@ -100,7 +100,7 @@ dop-padding { padding-left: 20px; }
 .space-between { justify-content: space-between; }
 .p-l-20 { padding-left: 20px; }
 .p-r-30 { padding-right: 30px; }
-
+.justify-content-center { justify-content: center; }
 
 
 #how-work {
