@@ -1,15 +1,10 @@
 from rest_framework import viewsets, mixins
-from app.models import Style, Clothing
-from app.serializers import StyleSerializer, ClothingSerializer
+from app.models import Clothing
+from app.serializers import ClothingSerializer
 
 
 class GetObjectViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     pass
-
-
-class StyleViewSet(GetObjectViewSet):
-    queryset = Style.objects.all()
-    serializer_class = StyleSerializer
 
 
 class ClothingViewSet(GetObjectViewSet):
@@ -17,4 +12,4 @@ class ClothingViewSet(GetObjectViewSet):
     serializer_class = ClothingSerializer
 
 
-__all__ = ["StyleViewSet", "ClothingViewSet"]
+__all__ = ["ClothingViewSet"]

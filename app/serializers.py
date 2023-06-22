@@ -1,14 +1,8 @@
 from django.contrib.auth.models import User
-from app.models import Style, Clothing, Prompt
+from app.models import  Clothing, Prompt
 from rest_framework import serializers
 from django.core import exceptions
 import django.contrib.auth.password_validation as validators
-
-
-class StyleSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Style
-        fields = ['id', 'name']
 
 
 class ClothingSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,12 +12,11 @@ class ClothingSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PromptSerializer(serializers.HyperlinkedModelSerializer):
-    type = serializers.PrimaryKeyRelatedField(queryset=Style.objects.all())
     results = serializers.SerializerMethodField()
 
     class Meta:
         model = Prompt
-        fields = ['id', 'type', 'details', 'results', 'error']
+        fields = ['id', 'style', 'details', 'results', 'error']
         read_only_fields = ['results']
 
     def create(self, validated_data):

@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.urls import include, path
 from app.router import HybridRouter
-from app.views import StyleViewSet, ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI, ProfileApi, LogoutApi
+from app.views import ClothingViewSet, PromptViewSet, RegisterAPI, LoginAPI, ProfileApi, LogoutApi
 
 router = HybridRouter()
-router.register(r'styles', StyleViewSet)
 router.register(r'clothes', ClothingViewSet)
 router.register(r'prompts', PromptViewSet, basename="Prompt")
 
