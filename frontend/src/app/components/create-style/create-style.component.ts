@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PromptApiService} from "../../services/api/prompt-api.service";
 
 @Component({
   selector: 'app-create-style',
@@ -25,7 +26,11 @@ export class CreateStyleComponent implements OnInit {
   public chosen_image: number = -1;
   public text: string="";
 
-  constructor() { }
+  private formData:any;
+
+  constructor(
+      private promptApi : PromptApiService,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -49,6 +54,6 @@ export class CreateStyleComponent implements OnInit {
   }
 
   create(): void {
-
+    this.promptApi.create(this.formData)
   }
 }
