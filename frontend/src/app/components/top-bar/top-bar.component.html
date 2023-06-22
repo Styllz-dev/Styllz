@@ -1,63 +1,30 @@
-<header id="main-header">
-  <p (click)="go('')" id="name">Sty<b style="color: #000aff;">ll</b>z</p>
-<!--  для большого экрана-->
-  <ul id="big-screen-1" class="table1">
-    <li (click)="go('/create-style')" style="display: inline-block;">
-      <a>create style</a>
-    </li>
-    <li (click)="out_user()" style="display: inline-block;">
-      <a>show user</a>
-    </li>
-  </ul>
-  <ul *ngIf="router.url != '/sign-in' && !profile.is_registered()" id="big-screen-2" class="table2">
-    <li>
-      <button (click)="go('/sign-in')" class="button3">get started</button>
-    </li>
-  </ul>
-
-<!--  выездное меню-->
-  <details *ngIf="this.user.registered" id="profile-details">
-    <summary class="button2"></summary>
-    <div class="profile-container">
-      <div class="padding-x-20" id="user-information">
-        <a class="no-underline user-profile-link" (click)="go('/profile')">
-          Signed in as
-          <strong class="new-line">{{user.username}}</strong>
-        </a>
-      </div>
-      <div class="line-divider"></div>
-
-      <div id="your-profile">
-        <a class="profile-item height-fit padding-x-20 padding-y-5 no-underline d-block">Your profile</a>
-        <a class="profile-item height-fit padding-x-20 padding-y-5 no-underline d-block">Your projects</a>
-      </div>
-      <div class="line-divider"></div>
-
-      <div id="settings-stuff">
-        <a class="profile-item height-fit padding-x-20 padding-y-5 no-underline d-block">Help</a>
-        <a class="profile-item height-fit padding-x-20 padding-y-5 no-underline d-block">Settings</a>
-      </div>
-      <div class="line-divider"></div>
-
-      <div (click)="logout()" class="f-s15 padding-y-5 padding-x-10 profile-item height-fit" id="sign-out">Log out</div>
+<div id="header" class="header flex flex-dir-row align-left">
+    <div class="p-l-20 p-r-30">
+        <svg id="svg-menu" (click)="open_menu()" width="50" height="50" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect id="rect1" x="5" y="14" width="50" height="3" fill="#D9D9D9"/>
+            <rect id="rect2" x="5" y="28" width="50" height="3" fill="#D9D9D9"/>
+            <rect id="rect3" x="5" y="42" width="50" height="3" fill="#D9D9D9"/>
+        </svg>
     </div>
-  </details>
+    <div>
+        <p (click)="go('/')" class="header-text">Sty<b style="font-weight: 500; color:#0284FE;">ll</b>z</p>
+    </div>
+</div>
 
-<!--  для маленького экрана-->
-  <svg (click)="show()" [class.chosen]="is_shown()" class="small-screen" id="small-screen" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-    <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
-  </svg>
-  <form style="" id="small-screen-form">
-    <ul>
-      <li (click)="go('/create-style')">
-        <a>create style</a>
-      </li>
-      <li (click)="go('/settings')">
-        <a>settings</a>
-      </li>
-    </ul>
-    <button (click)="go('/sign-in')" *ngIf="router.url != '/sign-in' && !profile.is_registered()" class="small-screen-div">Log in</button>
-  </form>
-</header>
+<div id="menu" class="menu">
+    <div class="top-bar flex">
+        <p (click)="go('/')" class="header-text">Sty<b style="font-weight: 500; color:#0284FE;">ll</b>z</p>
+    </div>
 
+    <div class="table">
+        <p [class.active]="check('view')" (click)="go('view')">Обзор</p>
+        <p [class.active]="check('opportunities')" (click)="go('opportunities')">Возможности</p>
+        <p [class.active]="check('safety')" (click)="go('safety')">Безопасность</p>
+    </div>
 
+    <hr style="margin-top: 7vh; margin-bottom: 5vh;">
+
+    <div (click)="go('/create-style')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
+<!--    <div class="btn clr2 flex align-center"><p>Войти</p></div>-->
+</div>
+<div (click)="close_menu()" id="dop-menu" class="dop-menu"></div>

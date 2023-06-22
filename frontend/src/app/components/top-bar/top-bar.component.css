@@ -1,305 +1,112 @@
-* { box-sizing: border-box; }
-
-#main-header {
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-
-
-  width: 100%;
-  height: 100px;
-
-  background: #000000;
-  color: #FFF;
-  z-index: 10000;
-
-  box-sizing: border-box;
-  padding-right: 30px;
+p,a,h1,h2,h3,h4,input {
+    padding: 0;
+    margin: 0;
+    font-family: Kanit, sans-serif;
 }
 
-#name {
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.header {
+    position: fixed;
+    width:100%;
+    height: 100px;
+    z-index: 800;
+    background: #fff;
 
-  cursor: pointer;
-
-  font-size: 40px;
-  font-family: 'Raleway', sans-serif;
-  font-weight: bolder;
-
-  line-height: 100px;
+    border-bottom: 1px solid #D9D9D9;
 }
-
-ul {
-  display: inline-block;
-  margin-top: 0;
-  list-style-type: none;
+.header-text {
+    font-size: max(30px, min(5vw, 50px));
+    font-family: Kanit, sans-serif;
+    font-weight: 500;
+    color: #737373;
+    line-height: 100%;
 }
-ul li a {
-  cursor: default;
+#svg-menu * {
+    transition-duration: 500ms;
 }
+.menu {
+    z-index: 820;
+    --width: min(70%, 500px);
+    width: var(--width);
+    height: 100vh;
 
-.table1 li {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
+    background: #fff;
 
+    position: fixed;
+    top:0;
+    left:calc(-1*var(--width));
+
+    transition-duration: 300ms;
 }
-.table1 li:after {
-  border: 2px #1f74e5 solid;
-  position: absolute;
-  content:'';
-  width: 110%;
-  bottom: -3px;
-  left: -120%;
-  transition: 0.5s;
-}
-.table1 li:hover:after {
-  left:0;
-}
-.table1 {
-  margin: 0;
-  font-size: 20px;
-  color: #9B9B9B;
+.dop-menu {
+    z-index: 820;
 
-  font-family: "Bitstream Charter", sans-serif;
-}
-.table1 li:not(:first-child) {
-  margin-left: 50px;
-}
+    --width: min(70%, 500px);
+    --width-dop: calc(100vw - var(--width));
+    width: var(--width-dop);
+    height: 100vh;
 
-.table2 {
-  line-height: 100px;
-}
-.table2 li {
-  display: inline-block;
-}
-.table2 button {
-  margin-top: 0;
-}
-
-#small-screen {
-  position: absolute;
-  line-height: 100px;
-  right: 50px;
-
-  transition: transform 1s ease;
-  fill: white;
-}
-.small-screen.chosen {
-  transform: rotate(90deg);
-}
-#small-screen-form {
-  overflow: hidden;
-  position: absolute;
-  margin-top: 100px;
-  height: 0px;
-  width: 100%;
-  background: #000;
-
-  transition-duration: 1s;
-  top:0;
-}
-#small-screen-form ul li {
-  font-size: 20px;
-  color: #9B9B9B;
-  font-family: "Bitstream Charter", sans-serif;
-}
-#small-screen-form ul li:not(:first-child) {
-  margin-top: 20px;
-}
-#small-screen-form ul li:first-child {
-  margin-top: 50px;
-}
-.small-screen-button {
-  position: absolute;
-  bottom: 20px;
-  left: 30px;
-
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 20px;
-  background: none;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0 30px 0 30px;
-
-  transition-duration: 200ms;
-}
-.small-screen-div {
-  position: absolute;
-  bottom: 20px;
-  left: 30px;
-
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 20px;
-  background: none;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0 30px 0 30px;
-
-  transition-duration: 200ms;
-}
-.small-screen-div * {
-  line-height: 40px;
-}
-
-@media screen and (min-width: 1000px) {
-  #big-screen-1 {
-    display: block;
-  }
-  #big-screen-2 {
-    display: block;
-  }
-  #small-screen {
-    display: none;
-  }
-  .profile-container {
+    position: fixed;
+    top: 0;
     right: 0;
-    top: 100px;
-  }
-}
-@media screen and (max-width: 1000px) {
-  #big-screen-1 {
+
     display: none;
-  }
-  #big-screen-2 {
-    display: none;
-  }
-  #small-screen {
-    display: block;
-  }
-  .profile-container {
-    left: 0;
-    bottom: 100px;
-  }
+    background: transparent;
+    transition-duration: 700ms;
 }
-
-.button3 {
-  width: auto;
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 20px;
-  background: none;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0 30px 0 30px;
-
-  transition-duration: 200ms;
+.top-bar {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    padding-left: 20px;
+    border-bottom: 1px solid #D9D9D9;
 }
-.button3:hover {
-  border-color: #002ec7;
-  color: #002ec7;
-  transition-duration: 200ms;
+.table {
+    margin-top: 5vh;
+    margin-left: 10px;
 }
-.button2 {
-  width: 40px;
-  height: 40px;
-
-  border: 1px solid #1f74e5;
-  color: #1f74e5;
-  border-radius: 50%;
-  background: none;
-
-  font-size: 18px;
-  font-family: "Bitstream Charter", sans-serif;
-
-  padding: 0;
-
-  transition-duration: 200ms;
+.table p {
+    font-size: max(1.4vw, 27px);
+    line-height: 100%;
+    color: #565656;
 }
-.button2:hover {
-  border-color: #002ec7;
-  color: #002ec7;
-  transition-duration: 200ms;
+.table p:not(:last-of-type) { margin-bottom: 7vh; }
+.table p.active {
+    color: #000;
 }
-.button2 {
-  position: relative;
+.table p:hover {
+    color: #333333;
 }
-.button2::marker {
-  content: "";
+.btn {
+    --left: 20px;
+    margin-left: var(--left);
+    width: calc(100% - 2*var(--left));
+    height: 40px;
+    border-radius: 4px;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
-
-/* Container around content */
-.profile-container {
-  margin-right: 10px;
-  padding: 10px 0 5px;
-  border-radius: 5px;
-  width: 200px;
-  height: fit-content;
-
-  position: absolute;
-  box-sizing: border-box;
-
-  background: white;
-  color: black;
-  overflow: hidden;
-
-  transition: height 800ms;
+.clr1 {
+    background: #0284FE;
+    color: #fff;
 }
-.profile-container div{
-  width: 100%;
-  box-sizing: border-box;
-}
-.profile-name {
-  font-size: 18px;
-}
-.content {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #9B9B9B;
-  font-family: "Bitstream Charter", sans-serif;
-
+.clr2 {
+    background: transparent;
+    color: #0284FE;
+    border: 1px solid #A8A8A8;
 }
 
 
-#user-information {
+.flex {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
 }
-.no-underline { text-decoration: none!important; }
-.d-block { display: block!important; }
-.user-profile-link {
-  font-size: 16px;
-  line-height: 120%;
-}
-.new-line {
-  width: 100%;
-  display: block;
-  vertical-align: top;
-}
-.line-divider {
-  padding: 0;
-  width: 100%;
-  height: 1px;
-  background: #7e7e7e;
-  margin: 10px 0;
-}
-.profile-item {
+.flex-dir-row { flex-direction: row; }
+.flex-dir-col { flex-direction: column; }
+.align-left { justify-content: left; }
+.align-center { justify-content: center; }
+.p-l-20 { padding-left: 20px; }
+.p-r-30 { padding-right: 30px; }
 
-}
-.height-fit { height: fit-content; }
-.f-s15 { font-size: 15px; }
-.padding-x-20 { padding-right: 20px; padding-left: 20px; }
-.padding-x-10 { padding-right: 10px; padding-left: 10px; }
-.padding-y-5 { padding-top: 5px; padding-bottom: 5px; }
 
-.profile-item:hover {
-  background: #1f74e5;
-  color: white;
-}

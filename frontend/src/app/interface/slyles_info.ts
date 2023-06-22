@@ -5,7 +5,7 @@ export interface Style_Info {
 }
 
 export const Styles: Style_Info[] = [
-  { picture_way: "assets/img.png", date: "29.03.2023", username: "bokisarik" },
-  { picture_way: "assets/img.png", date: "29.03.2023", username: "bokisarik" },
-  { picture_way: "assets/img.png", date: "29.03.2023", username: "bokisarik" },
+  { picture_way: "assets/sport.png", date: "29.03.2023", username: "bokisarik" },
+  { picture_way: "assets/sport.png", date: "29.03.2023", username: "bokisarik" },
+  { picture_way: "assets/sport.png", date: "29.03.2023", username: "bokisarik" },
 ]

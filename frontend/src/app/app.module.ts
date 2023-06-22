@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientXsrfModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
-import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { CreateStyleComponent } from './components/create-style/create-style.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
-import { SettingsComponent } from './components/settings/settings.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from "@angular/forms";
@@ -19,17 +19,15 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { ProfileCompComponent } from './components/profile-comp/profile-comp.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         StartPageComponent,
-        TopBarComponent,
         CreateStyleComponent,
         RegistrationPageComponent,
-        SettingsComponent,
-        ProfileCompComponent,
+        TopBarComponent,
     ],
     imports: [
         BrowserModule,

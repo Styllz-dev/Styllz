@@ -1,70 +1,24 @@
-<div class="content items-center">
-    <p class="main__text">Make your style</p>
-    <p class="little__text">Fill form fields to go to next step</p>
-    <form id="msform">
-        <!-- progressbar -->
-        <ul id="progressbar">
-            <li *ngFor="let text of this.progressbar_texts; index as i" (click)="go(i+1)" [class.current]="progressbar_status==i+1" [class.active]="progressbar_status>=i+1">
-                <div class="container">
-                    <div class="circle"></div>
-                    <div class="line"></div>
+<main>
+    <div class="content flex fl-row align-center just-center">
+        <div class="box create-style flex fl-col align-center">
+            <div class="prompt-container">
+                <div class="prompt-text">
+                    <p>Enter Prompt</p>
+                    <p style="font-size: 20px;">{{prompt.length}}/200</p>
                 </div>
-                <p class="progressbar-text">{{text}}</p>
-            </li>
-        </ul>
-    </form>
-
-    <div id="fieldset">
-        <span class="name">
-            <p class="header">{{pages_names[progressbar_status]}}:</p>
-            <p class="text">Step {{progressbar_status}}/{{pages_count}}</p>
-        </span>
-        <div *ngIf="progressbar_status==1" id="photo">
-            <span class="input">
-                <p>Upload your photo</p>
-                <div class="photo-input"><input (change)="onFileSelected($event)" type="file" accept="image/*" title=" " placeholder="" id="image-input"/></div>
-            </span>
-        </div>
-        <div *ngIf="progressbar_status==2" id="style">
-            <span class="input">
-                <p>Choose your style</p>
-                <div class="style-container">
-                    <div *ngFor="let i of this.styles_list_to_display" [class.active]="chosen_style==i" (click)="chosen_style=i" class="style-card"><p>{{i.name}}</p></div>
-                </div>
-            </span>
-        </div>
-        <div *ngIf="progressbar_status==3" id="clothes">
-            <span class="input">
-                <p>Choose your clothes and color it</p>
-                <div class="container">
-                    <div class="clothes-image-card" [class.active]="isContainClothesItem(i)" *ngFor="let clothes of this.clothes_list_to_display; index as i">
-                        <img (click)="addClothesItem(i)" id="clothes_{{i}}" class="clothes-image" [src]="clothes">
-                        <input (input)="updateClothesImage(i);" id="input_{{i}}" type="color" class="clothes-color-input">
+                <input id="prompt" (input)="get_prompt()" class="prompt-input">
+            </div>
+            <div class="style-container">
+                <div class="style-text"><p>Clothes Style</p></div>
+                <div class="style-images-container">
+                    <div class="style-image" *ngFor="let link of styles; index as i">
+                        <img (click)="chose_img(i)" [class.chosen]="this.chosen_image==i" [src]="link">
+                        <p class="styles-image-text">{{this.styles_text[i]}}</p>
                     </div>
                 </div>
-            </span>
+            </div>
+            <div (click)="create()" [class.chosen]="is_all_chosen()" class="create-style-button flex align-center just-center">Create</div>
         </div>
-        <div *ngIf="progressbar_status==4" id="details">
-            <span class="input">
-                <textarea id="details-textarea"></textarea>
-            </span>
-        </div>
-        <div *ngIf="progressbar_status==5" id="get-images">
-            <span class="input">
-            </span>
-        </div>
-        <div *ngIf="progressbar_status==6" id="post-images">
-            <span class="input">
-
-            </span>
-        </div>
-
-        <div class="move">
-            <input (click)="progressbar_status=progressbar_status-1" type="button" id="prev-button" *ngIf="progressbar_status!=1" value="Previous"/>
-            <input (click)="progressbar_status=progressbar_status+1; out()" type="button" id="next-button" *ngIf="progressbar_status!=6&&progressbar_status!=4" value="Next"/>
-            <input (click)="finish()" type="button" id="submit-button" *ngIf="progressbar_status==6" value="Submit"/>
-            <input (click)="post()" type="button" id="repost-button" *ngIf="progressbar_status==5" value="Remake"/>
-            <input (click)="create_style(); progressbar_status=progressbar_status+1" type="button" id="post-button" *ngIf="progressbar_status==4" value="Get images"/>
-        </div>
+        <div class="box view-style"></div>
     </div>
-</div>
+</main>
