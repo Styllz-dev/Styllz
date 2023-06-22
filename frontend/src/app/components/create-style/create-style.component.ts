@@ -23,7 +23,7 @@ export class CreateStyleComponent implements OnInit {
     "oversize",
   ]
   public chosen_image: number = -1;
-  public prompt: string="";
+  public text: string="";
 
   constructor() { }
 
@@ -37,14 +37,14 @@ export class CreateStyleComponent implements OnInit {
       document.getElementById('prompt').value=document.getElementById('prompt').value.substr(0,200);
     } else {
       // @ts-ignore
-      this.prompt = document.getElementById('prompt').value;
+      this.text = document.getElementById('prompt').value;
     }
   }
   chose_img(i:number) {
     this.chosen_image=i;
   }
   is_all_chosen() {
-    if(this.chosen_image!=-1&&this.prompt.length>0) return true;
+    if(this.chosen_image!=-1&&this.text.length>0) return true;
     return false;
   }
 
