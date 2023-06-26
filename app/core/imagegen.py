@@ -1,31 +1,30 @@
+from app.core.utils import save_image
+
 from app.models import Prompt, Result
-from django.core.files import File
+
 from django.conf import settings
-from django.db import models
-
-from app.core.utils import format_params, download_image
-
-from io import BytesIO
-from typing import Iterator
-import openai
+from PIL import Image
+import webuiapi
 
 
-def _make_prompt(prompt: Prompt) -> str:
-    return f"Person dressed in {format_params(prompt.details, '{} ')} {prompt.type} style{format_params(''.join(map(str, prompt.clothes.all())), ' with: {}')}."
+def make_photo(prompt: Prompt):
+    if settings.SD_API["host"]:
+        api = webuiapi.WebUIApi(**settings.SD_API)
+        result = api.txt2img(
+            prompt=f"a full-length portrait photo with face of (styllzuser{settings.SD_USER} man:1.2) wearing {prompt.style} {prompt.details} <lora:styllzuser{settings.SD_USER}:1>",
+            negative_prompt="(blue eyes, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime:1.4), fat, text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck",
+            seed=3362803203,
+            cfg_scale=5,
+            sampler_index='DPM++ SDE Karras',
+            steps=25,
+            width=640,
+            height=720,
+            enable_hr=True,
+            hr_scale=2,
+            hr_upscaler=webuiapi.HiResUpscaler.Latent,
+            denoising_strength=0.7,
+            ).image
+    else:
+        result = Image.new("RGB", (1280, 1440))
 
-
-def dress(original: BytesIO, mask: BytesIO, prompt: Prompt) -> models.QuerySet[Result]:
-    responses = openai.Image.create_edit(
-        image=original.getvalue(),
-        mask=mask.getvalue(),
-        prompt=_make_prompt(prompt),
-        n=4,
-        size=settings.IMAGEGEN_SIZE,
-        response_format="b64_json",
-    )
-
-    for response in responses["data"]:
-        image = download_image(response["b64_json"])
-        Result.objects.create(prompt=prompt, image=image)
-    return Result.objects.filter(prompt=prompt)
-
+    return Result.objects.create(prompt=prompt, image=save_image(result))
