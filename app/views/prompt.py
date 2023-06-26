@@ -22,7 +22,7 @@ class PromptViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Des
 
     def perform_create(self, serializer):
         prompt = serializer.save(user=self.request.user)
-        #async_task("app.core.pipeline.make_photo", prompt)
+        async_task("app.core.pipeline.make_photo", prompt)
 
     def get_queryset(self, *args, **kwargs):
         if type(self.request.user) != AnonymousUser:
