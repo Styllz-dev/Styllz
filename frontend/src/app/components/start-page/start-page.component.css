@@ -5,6 +5,7 @@ p,a,h1,h2,h3,h4,input {
     line-height: 100%;
 }
 
+
 .content {
     z-index:9;
 
@@ -68,6 +69,7 @@ p,a,h1,h2,h3,h4,input {
 }
 dop-margin { margin-left: 112px; }
 dop-padding { padding-left: 20px; }
+
 
 .flex {
     display: flex;
@@ -148,6 +150,30 @@ dop-padding { padding-left: 20px; }
 #how-work .box p { font-size: 20px; }
 #how-work .box p:not(:last-of-type) { margin-bottom: 30px; }
 
+
+.last-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 30px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.last-div span {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+
+    grid-column-gap: 20px;
+}
 
 
 @media screen and (max-width: 1000px) {

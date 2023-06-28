@@ -126,9 +126,13 @@ main  {
     background: #0056ab;
 }
 
+
 .viewer {
     background: #C2ACFF;
     border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 410;
 }
 .viewer img {
     max-width: 500px;

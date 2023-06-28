@@ -48,9 +48,11 @@ export class TopBarComponent implements OnInit {
     this.close_menu();
   }
   check(link: string):boolean {
-    // @ts-ignore
-    if(window.scrollY>=document.getElementById(link).offsetTop&&window.scrollY<=document.getElementById(link).offsetTop+document.getElementById(link).offsetHeight)
-      return true;
+    if(ActivatedRoute.name=='') {
+      // @ts-ignore
+      if (window.scrollY >= document.getElementById(link).offsetTop && window.scrollY <= document.getElementById(link).offsetTop + document.getElementById(link).offsetHeight)
+        return true;
+    }
     return false;
   }
 }

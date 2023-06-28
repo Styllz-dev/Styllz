@@ -27,8 +27,10 @@ export class CreateStyleComponent implements OnInit {
   public chosen_style: number = -1;
   public text: string="";
 
+  public made_first_create:boolean=false;
+
   private formData:any;
-  public images_to_display?: string[] = undefined;
+  public images_to_display?: string[] = [];
 
 
   constructor(
@@ -77,6 +79,7 @@ export class CreateStyleComponent implements OnInit {
     )
   }
   create(): void {
+    this.made_first_create=true;
     if (this.is_all_chosen()) {
       const data:Prompt = {
         style: this.styles_text[this.chosen_style],
@@ -94,7 +97,7 @@ export class CreateStyleComponent implements OnInit {
   }
   get_next(): void {
     if(this.images_to_display!=undefined&&this.images_to_display.length>0) this.images_to_display.splice(0,1);
-    if(this.images_to_display!=undefined&&this.images_to_display.length==0) this.generate();
+    if(this.images_to_display!=undefined&&this.images_to_display.length==0) this.create();
   }
 
   protected readonly undefined = undefined;
