@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import mimetypes
-import openai
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -168,8 +167,12 @@ MEDIA_ROOT = BASE_DIR / "files"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-IMAGEGEN_SIZE = "1024x1024"
+SD_API = {
+    "host": os.getenv("SD_API_HOST", ""),
+    "port": 7860
+}
+
+SD_USER = 1
 
 
 Q_CLUSTER = {

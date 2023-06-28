@@ -20,13 +20,12 @@ class Prompt(models.Model):
         verbose_name_plural = "Запросы"
 
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Пользователь")
-    #image = models.ImageField(upload_to="prompts", verbose_name="Картинка")
     style = models.CharField(max_length=50, blank=True, verbose_name="Стиль")
     details = models.CharField(max_length=150, blank=True, verbose_name="Комментарий")
     error = models.TextField(blank=True, editable=False, verbose_name="Ошибка")
 
     def __str__(self):
-        return f"{self.id} - {self.type}"
+        return f"{self.id} - {self.style}"
 
 
 class Result(models.Model):

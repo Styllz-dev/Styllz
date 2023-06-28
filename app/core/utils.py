@@ -1,7 +1,7 @@
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
 
-from base64 import b64decode
+from PIL import Image
 from typing import Optional
 
 
@@ -13,8 +13,8 @@ def format_params(value: Optional[str], template: Optional[str] = None) -> str:
             return value
 
 
-def download_image(source: str) -> File:
+def save_image(img: Image) -> File:
     img_tmp = NamedTemporaryFile(delete=True)
-    img_tmp.write(b64decode(source))
+    img.save(img_tmp, format="PNG")
     img_tmp.flush()
     return File(img_tmp, name=f"{img_tmp.name[1:]}.png")
