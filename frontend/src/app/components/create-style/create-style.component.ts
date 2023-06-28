@@ -58,13 +58,14 @@ export class CreateStyleComponent implements OnInit {
     return false;
   }
 
-  generate(): void {
+  generate(): void{
     this.promptApi.create(this.formData).subscribe(
         response => {
           function get_images(that: CreateStyleComponent) {
             that.promptApi.get(response.id).subscribe(
                 response=> { // @ts-ignore
                   if (response.results!=undefined&&response.results.length>0) {
+                    console.log(response);
                     that.images_to_display = response.results;
                   }  else if (response.error) {
                     console.log(response.error);
@@ -99,6 +100,4 @@ export class CreateStyleComponent implements OnInit {
     if(this.images_to_display!=undefined&&this.images_to_display.length>0) this.images_to_display.splice(0,1);
     if(this.images_to_display!=undefined&&this.images_to_display.length==0) this.create();
   }
-
-  protected readonly undefined = undefined;
 }

@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div (click)="create()" [class.chosen]="is_all_chosen()" class="create-style-button flex align-center just-center">Create</div>
+            <div (click)="get_next()" [class.chosen]="is_all_chosen()" class="create-style-button flex align-center just-center">Create</div>
         </div>
         <div class="box viewer flex fl-col align-center just-center">
             <p *ngIf="!this.made_first_create">here will be generated image</p>
