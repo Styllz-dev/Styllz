@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {PromptApiService} from "../../services/api/prompt-api.service";
 import {Prompt} from "../../models/prompt.model";
 
+const loader_text_count:number=8;
+
 @Component({
   selector: 'app-create-style',
   templateUrl: './create-style.component.html',
@@ -42,15 +44,6 @@ export class CreateStyleComponent implements OnInit {
     this.change_type();
   }
 
-  change_type(): void {
-    this.loader_text_type=1;
-    function change(that: CreateStyleComponent, status:string){
-      that.loader_text_type%=8;
-      that.loader_text_type+=1;
-      setTimeout(change, 3000, that)
-    }
-    setTimeout(change, 3000, this);
-  }
 
   get_prompt() {
     // @ts-ignore
@@ -70,13 +63,25 @@ export class CreateStyleComponent implements OnInit {
     return false;
   }
 
+  change_type(): void {
+    this.loader_text_type=1;
+    function change(that: CreateStyleComponent, status:string){
+      that.loader_text_type%=loader_text_count;
+      that.loader_text_type+=1;
+      setTimeout(change, 3000, that)
+    }
+    setTimeout(change, 3000, this);
+  }
   get_drink(): string {
-    var type=Math.random() % 5;
+    function getRandomInt(max:number) {
+      return Math.floor(Math.random() * max);
+    }
+    var type=getRandomInt(5);
     if(type==1) return "чай";
-    if(type==1) return "кофе";
-    if(type==1) return "лимонад";
-    if(type==1) return "воду";
-    if(type==1) return "квас";
+    if(type==2) return "кофе";
+    if(type==3) return "лимонад";
+    if(type==4) return "воду";
+    if(type==5) return "квас";
     return "кофе";
   }
 

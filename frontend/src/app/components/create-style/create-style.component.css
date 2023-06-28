@@ -1,3 +1,10 @@
+:root {
+    --square1-color: #28d751;
+    --square2-color: #02bcef;
+    --square3-color: #D53A33;
+    --square4-color: #C2ACFF;
+}
+
 p,a,h1,h2,h3,input {
     margin: 0;
     padding: 0;
@@ -138,14 +145,6 @@ main  {
     max-width: 500px;
     max-height: 700px;
 }
-.loader {
-    border: 3px solid lightgrey; /* Light grey */
-    border-top: 3px solid #673AB7; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-}
 .loader-text {
     position: absolute;
     bottom: 100px;
@@ -155,10 +154,6 @@ main  {
     font-size: 20px;
     font-weight: 500;
 }
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 
 .flex { display: flex; flex-wrap: wrap; }
@@ -166,3 +161,140 @@ main  {
 .fl-col { flex-direction: column; }
 .align-center { align-content: center; align-items: center; }
 .just-center { justify-content: center; }
+
+
+
+.loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222222;
+}
+.loader {
+    display: block;
+    position: relative;
+    height: 20px;
+    width: 86px;
+}
+.loading-square {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 0;
+}
+.loading-square:nth-child(1) {
+    left: 0;
+    animation: square1 1.5s linear forwards infinite;
+}
+.loading-square:nth-child(2) {
+    left: 22px;
+    animation: square2 1.5s linear forwards infinite;
+}
+.loading-square:nth-child(3) {
+    left: 44px;
+    animation: square3 1.5s linear forwards infinite;
+}
+.loading-square:nth-child(4) {
+    left: 66px;
+    animation: square4 1.5s linear forwards infinite;
+}
+@keyframes square1 {
+    0% {
+        background-color: var(--square1-color);
+        transform: translate(0, 0);
+    }
+    9.09091% {
+        transform: translate(0, calc(-100% - 2px));
+        background-color: var(--square1-color);
+    }
+    18.18182% {
+        transform: translate(calc(100% + 2px), calc(-100% - 2px));
+        background-color: var(--square2-color);
+    }
+    27.27273% {
+        transform: translate(calc(100% + 2px), 0);
+    }
+    100% {
+        background-color: var(--square2-color);
+        transform: translate(calc(100% + 2px), 0);
+    }
+}
+@keyframes square2 {
+    0% {
+        background-color: var(--square2-color);
+        transform: translate(0, 0);
+    }
+    18.18182% {
+        transform: translate(0, 0);
+    }
+    27.27273% {
+        transform: translate(0, calc(100% + 2px));
+        background-color: var(--square2-color);
+    }
+    36.36364% {
+        transform: translate(calc(100% + 2px), calc(100% + 2px));
+        background-color: var(--square3-color);
+    }
+    45.45455% {
+        transform: translate(calc(100% + 2px), 0);
+    }
+    100% {
+        background-color: var(--square3-color);
+        transform: translate(calc(100% + 2px), 0);
+    }
+}
+@keyframes square3 {
+    0% {
+        background-color: var(--square3-color);
+        transform: translate(0, 0);
+    }
+    36.36364% {
+        transform: translate(0, 0);
+    }
+    45.45455% {
+        transform: translate(0, calc(-100% - 2px));
+        background-color: var(--square3-color);
+    }
+    54.54545% {
+        transform: translate(calc(100% + 2px), calc(-100% - 2px));
+        background-color: var(--square4-color);
+    }
+    63.63636% {
+        transform: translate(calc(100% + 2px), 0);
+    }
+    100% {
+        background-color: var(--square4-color);
+        transform: translate(calc(100% + 2px), 0);
+    }
+}
+@keyframes square4 {
+    0% {
+        transform: translate(0, 0);
+        background-color: var(--square4-color);
+    }
+    54.54545% {
+        transform: translate(0, 0);
+    }
+    63.63636% {
+        transform: translate(0, calc(100% + 2px));
+        background-color: var(--square4-color);
+    }
+    72.72727% {
+        background-color: var(--square3-color);
+    }
+    81.81818% {
+        background-color: var(--square2-color);
+    }
+    90.90909% {
+        transform: translate(calc(-300% - 6px), calc(100% + 2px));
+        background-color: var(--square1-color);
+    }
+    100% {
+        transform: translate(calc(-300% - 6px), 0);
+        background-color: var(--square1-color);
+    }
+}

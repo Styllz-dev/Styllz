@@ -22,7 +22,14 @@
         <div class="box viewer flex fl-col align-center just-center">
             <p *ngIf="!this.made_first_create">here will be generated image</p>
             <img *ngIf="images_to_display!=undefined&&images_to_display.length>0" [src]="images_to_display[0]">
-            <div *ngIf="(images_to_display==undefined||this.images_to_display.length==0)&&this.made_first_create" class="loader"></div>
+            <div *ngIf="(images_to_display==undefined||this.images_to_display.length==0)&&this.made_first_create" class="loader-container">
+                <div class="loader">
+                    <div class="loading-square"></div>
+                    <div class="loading-square"></div>
+                    <div class="loading-square"></div>
+                    <div class="loading-square"></div>
+                </div>
+            </div>
             <div *ngIf="(images_to_display==undefined||this.images_to_display.length==0)&&this.made_first_create" class="loader-text flex fl-row align-center just-center">
                 <p *ngIf="loader_text_type==1">Отдаем вашу картинку на сервер</p>
                 <p *ngIf="loader_text_type==2">Обрабатываем фотографию</p>
