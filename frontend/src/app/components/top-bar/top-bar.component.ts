@@ -18,20 +18,21 @@ export class TopBarComponent implements OnInit {
 
   open_menu() {
     // @ts-ignore
-    document.getElementById('dop-menu').style.display='block';
-    // @ts-ignore
     document.getElementById('menu').style.left='0';
     // @ts-ignore
-    document.getElementById('dop-menu').style.background='rgba(0,0,0,50%)';
+    document.getElementById('dop-menu').style.display='block';
+    setTimeout(function () {
+      // @ts-ignore
+      document.getElementById('dop-menu').style.background='rgba(0,0,0,0.5)';
+    }, 10)
   }
   close_menu() {
     // @ts-ignore
     document.getElementById('menu').style.left='calc(-1*var(--width))';
     // @ts-ignore
-    document.getElementById('dop-menu').style.background='transparent';
+    document.getElementById('dop-menu').style.background='rgba(0,0,0,0)';
     // @ts-ignore
     document.getElementById('dop-menu').style.display='none';
-
   }
 
   go(link:string) {

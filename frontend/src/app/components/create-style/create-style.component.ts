@@ -27,6 +27,7 @@ export class CreateStyleComponent implements OnInit {
   public chosen_style: number = -1;
   public text: string="";
 
+  public loader_text_type:number=1;
   public made_first_create:boolean=false;
 
   private formData:any;
@@ -38,6 +39,17 @@ export class CreateStyleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.change_type();
+  }
+
+  change_type(): void {
+    this.loader_text_type=1;
+    function change(that: CreateStyleComponent, status:string){
+      that.loader_text_type%=8;
+      that.loader_text_type+=1;
+      setTimeout(change, 3000, that)
+    }
+    setTimeout(change, 3000, this);
   }
 
   get_prompt() {
@@ -56,6 +68,16 @@ export class CreateStyleComponent implements OnInit {
   is_all_chosen() {
     if(this.chosen_style!=-1&&this.text.length>0) return true;
     return false;
+  }
+
+  get_drink(): string {
+    var type=Math.random() % 5;
+    if(type==1) return "чай";
+    if(type==1) return "кофе";
+    if(type==1) return "лимонад";
+    if(type==1) return "воду";
+    if(type==1) return "квас";
+    return "кофе";
   }
 
   generate(): void{
@@ -97,6 +119,7 @@ export class CreateStyleComponent implements OnInit {
     }
   }
   get_next(): void {
+    this.loader_text_type=1;
     if(this.images_to_display!=undefined&&this.images_to_display.length>0) this.images_to_display.splice(0,1);
     if(this.images_to_display!=undefined&&this.images_to_display.length==0) this.create();
   }

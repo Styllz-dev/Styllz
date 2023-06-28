@@ -35,14 +35,13 @@ p,a,h1,h2,h3,h4,input {
     top:0;
     left:calc(-1*var(--width));
 
-    transition-duration: 300ms;
+    transition-duration: 400ms;
 }
 .dop-menu {
-    z-index: 820;
+    z-index: 819;
 
     --width: min(70%, 500px);
-    --width-dop: calc(100vw - var(--width));
-    width: var(--width-dop);
+    width: 100vw;
     height: 100vh;
 
     position: fixed;
@@ -50,8 +49,8 @@ p,a,h1,h2,h3,h4,input {
     right: 0;
 
     display: none;
-    background: transparent;
-    transition-duration: 700ms;
+    background: rgba(0,0,0,0);
+    transition-duration: 500ms;
 }
 .top-bar {
     box-sizing: border-box;
