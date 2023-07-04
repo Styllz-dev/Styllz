@@ -23,6 +23,13 @@ p,a,h1,h2,h3,h4,input {
     font-size: 20px;
     margin-bottom: 20px;
 }
+.login-text{
+    margin-left: 20px;
+    color: #0284FE!important;
+}
+.login-text:hover {
+    color: #007ae0!important;
+}
 .clr1 {
     background: #0284FE;
     color: #fff;
@@ -31,6 +38,14 @@ p,a,h1,h2,h3,h4,input {
     background: transparent;
     color: #0284FE;
     border: 1px solid #A8A8A8;
+}
+.clr1:hover {
+    background: #007ae0;
+    color: #ffffff;
+}
+.clr2:hover {
+    border-color: #7a7a7a;
+    color: #007ae0;
 }
 .view {
     width: 100%;
@@ -191,4 +206,9 @@ dop-padding { padding-left: 20px; }
     z-index: 400;
     top: 1986px;
     right: -100px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
 }

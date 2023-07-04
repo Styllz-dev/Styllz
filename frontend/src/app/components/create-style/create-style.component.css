@@ -1,10 +1,3 @@
-:root {
-    --square1-color: #28d751;
-    --square2-color: #02bcef;
-    --square3-color: #D53A33;
-    --square4-color: #C2ACFF;
-}
-
 p,a,h1,h2,h3,input {
     margin: 0;
     padding: 0;
@@ -172,7 +165,7 @@ main  {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: #222222;
+    background-color: transparent;
 }
 .loader {
     display: block;
@@ -204,28 +197,28 @@ main  {
 }
 @keyframes square1 {
     0% {
-        background-color: var(--square1-color);
+        background-color: #28d751;
         transform: translate(0, 0);
     }
     9.09091% {
         transform: translate(0, calc(-100% - 2px));
-        background-color: var(--square1-color);
+        background-color: #28d751;
     }
     18.18182% {
         transform: translate(calc(100% + 2px), calc(-100% - 2px));
-        background-color: var(--square2-color);
+        background-color: #02bcef;
     }
     27.27273% {
         transform: translate(calc(100% + 2px), 0);
     }
     100% {
-        background-color: var(--square2-color);
+        background-color: #02bcef;
         transform: translate(calc(100% + 2px), 0);
     }
 }
 @keyframes square2 {
     0% {
-        background-color: var(--square2-color);
+        background-color: #02bcef;
         transform: translate(0, 0);
     }
     18.18182% {
@@ -233,23 +226,23 @@ main  {
     }
     27.27273% {
         transform: translate(0, calc(100% + 2px));
-        background-color: var(--square2-color);
+        background-color: #02bcef;
     }
     36.36364% {
         transform: translate(calc(100% + 2px), calc(100% + 2px));
-        background-color: var(--square3-color);
+        background-color: #D53A33;
     }
     45.45455% {
         transform: translate(calc(100% + 2px), 0);
     }
     100% {
-        background-color: var(--square3-color);
+        background-color: #D53A33;
         transform: translate(calc(100% + 2px), 0);
     }
 }
 @keyframes square3 {
     0% {
-        background-color: var(--square3-color);
+        background-color: #D53A33;
         transform: translate(0, 0);
     }
     36.36364% {
@@ -257,44 +250,44 @@ main  {
     }
     45.45455% {
         transform: translate(0, calc(-100% - 2px));
-        background-color: var(--square3-color);
+        background-color: #D53A33;
     }
     54.54545% {
         transform: translate(calc(100% + 2px), calc(-100% - 2px));
-        background-color: var(--square4-color);
+        background-color: #ffae4b;
     }
     63.63636% {
         transform: translate(calc(100% + 2px), 0);
     }
     100% {
-        background-color: var(--square4-color);
+        background-color: #ffae4b;
         transform: translate(calc(100% + 2px), 0);
     }
 }
 @keyframes square4 {
     0% {
         transform: translate(0, 0);
-        background-color: var(--square4-color);
+        background-color: #ffae4b;
     }
     54.54545% {
         transform: translate(0, 0);
     }
     63.63636% {
         transform: translate(0, calc(100% + 2px));
-        background-color: var(--square4-color);
+        background-color: #ffae4b;
     }
     72.72727% {
-        background-color: var(--square3-color);
+        background-color: #D53A33;
     }
     81.81818% {
-        background-color: var(--square2-color);
+        background-color: #02bcef;
     }
     90.90909% {
         transform: translate(calc(-300% - 6px), calc(100% + 2px));
-        background-color: var(--square1-color);
+        background-color: #28d751;
     }
     100% {
         transform: translate(calc(-300% - 6px), 0);
-        background-color: var(--square1-color);
+        background-color: #28d751;
     }
 }

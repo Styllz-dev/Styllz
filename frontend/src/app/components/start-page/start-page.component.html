@@ -5,13 +5,16 @@
 
         <div class="flex2">
             <div (click)="go('/create-style')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
-<!--            <div class="btn clr2 flex align-center"><p>Войти</p></div>-->
+            <div (click)="to_login('login')" class="btn clr2 flex align-center">
+                <p *ngIf="!is_logged()">Войти</p>
+                <p *ngIf="is_logged()">Выйти</p>
+            </div>
         </div>
 
-<!--        <div class="flex2">-->
-<!--            <p class="&#45;&#45;main">Нет аккаунта?</p>-->
-<!--            <p class="&#45;&#45;main"><a>Заригестрироваться</a></p>-->
-<!--        </div>-->
+        <div *ngIf="!is_logged()" class="flex2">
+            <p class="--main">Нет аккаунта?</p>
+            <p class="--main login-text" (click)="to_login('register')"><a>Зарегистрироваться</a></p>
+        </div>
     </div>
 
     <hr style="margin-bottom: 50px;">

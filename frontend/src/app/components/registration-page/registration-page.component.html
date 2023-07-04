@@ -1,1 +1,41 @@
-<p>registration-page works!</p>
+<div id="main">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1>
+                <span>use your email for registration</span>
+                <input id="registration-name" type="text" placeholder="Name" />
+                <input id="registration-email" type="email" placeholder="Email" />
+                <input id="registration-password1" type="password" placeholder="Password" />
+                <input id="registration-password2" type="password" placeholder="Password" />
+                <button (click)="register()">Sign Up</button>
+            </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <span>use your account</span>
+                <input id="login-name" type="text" placeholder="Name" />
+                <input id="login-password" type="password" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <button (click)="login()">Sign In</button>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

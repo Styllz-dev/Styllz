@@ -5,10 +5,6 @@ body, p, div, a, h1 {
   padding: 0;
   margin: 0;
 }
-body {
-  background: #fff;
-  color: #000;
-}
 *::-webkit-scrollbar {
   width: 0;
   display: none;
@@ -25,4 +21,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow-x: hidden;
+  background: #fff;
+  color: #000;
 }

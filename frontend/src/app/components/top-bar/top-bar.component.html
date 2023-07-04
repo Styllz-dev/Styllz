@@ -9,22 +9,38 @@
     <div>
         <p (click)="go('/')" class="header-text">Sty<b style="font-weight: 500; color:#0284FE;">ll</b>z</p>
     </div>
+
+    <div *ngIf="is_logged()" class="icon-container flex flex-dir-row align-center just-center">
+        <img src="/static/assets/woman-icon.jpg" class="icon-img">
+        <svg style="margin-left: 10px;" width="20" height="11.6" viewBox="0 0 79 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.5" d="M43.07 44.3593C41.1098 46.3583 37.8902 46.3583 35.93 44.3593L1.50325 9.2507C-1.59901 6.087 0.642353 0.75 5.07328 0.75L73.9267 0.75C78.3577 0.75 80.599 6.08699 77.4968 9.2507L43.07 44.3593Z" fill="#363636"/>
+        </svg>
+    </div>
 </div>
 
-<div id="menu" class="menu">
+<div [class.active]="is_opened()" id="menu" class="menu">
     <div class="top-bar flex">
         <p (click)="go('/')" class="header-text">Sty<b style="font-weight: 500; color:#0284FE;">ll</b>z</p>
     </div>
 
     <div class="table">
-        <p [class.active]="check('view')" (click)="go('view')">Обзор</p>
-        <p [class.active]="check('opportunities')" (click)="go('opportunities')">Возможности</p>
-        <p [class.active]="check('how-work')" (click)="go('how-work')">Как работать</p>
+        <div class="table-element">
+            <p [class.active]="check('view')" (click)="go('view')">Обзор</p>
+        </div>
+        <div class="table-element">
+            <p [class.active]="check('opportunities')" (click)="go('opportunities')">Возможности</p>
+        </div>
+        <div class="table-element">
+            <p [class.active]="check('how-work')" (click)="go('how-work')">Как работать</p>
+        </div>
     </div>
 
     <hr style="margin-top: 7vh; margin-bottom: 5vh;">
 
     <div (click)="go('/create-style')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
-<!--    <div class="btn clr2 flex align-center"><p>Войти</p></div>-->
+    <div (click)="login()" class="btn clr2 flex align-center">
+        <p *ngIf="is_logged()">Выйти</p>
+        <p *ngIf="!is_logged()">Войти</p>
+    </div>
 </div>
 <div (click)="close_menu()" id="dop-menu" class="dop-menu"></div>
