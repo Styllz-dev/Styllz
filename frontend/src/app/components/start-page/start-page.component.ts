@@ -43,6 +43,8 @@ export class StartPageComponent implements OnInit {
         }, error=> {
         }
     )
+
+    window.location.reload();
   }
   update_account(): void {
     this.profile_api.get().subscribe(

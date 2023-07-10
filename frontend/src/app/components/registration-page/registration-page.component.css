@@ -88,6 +88,37 @@
         height: 100%;
         transition: all 0.6s ease-in-out;
     }
+    .input-container {
+        width: 100%;
+        position: relative;
+    }
+    .input-icon {
+        display: none;
+        position: absolute;
+        top: 17.5px;
+        right: 10px;
+    }
+    .error-content {
+        display: none;
+        width: auto;
+        height: 40px;
+        background: rgb(232, 240, 254);
+        border: 1px solid #000000;
+        position: absolute;
+        font-size: 18px;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    .error-content p { line-height: 100%; }
+    #password2-content {
+        top: 366px;
+        right: 50px;
+    }
+    #username-content {
+        top: 199px;
+        right: 50px;
+    }
 
     .sign-in-container {
         left: 0;
@@ -283,6 +314,10 @@
         color: black;
         height: 50%;
         transition: all 0.6s ease-in-out;
+    }
+    .input-container {
+        width: 100%;
+        position: relative;
     }
 
     .sign-in-container {

@@ -4,11 +4,36 @@
             <form action="#">
                 <h1>Create Account</h1>
                 <span>use your email for registration</span>
-                <input id="registration-name" type="text" placeholder="Name" />
-                <input id="registration-email" type="email" placeholder="Email" />
-                <input id="registration-password1" type="password" placeholder="Password" />
-                <input id="registration-password2" type="password" placeholder="Password" />
+                <div class="input-container">
+                    <input id="registration-name" type="text" placeholder="Name" />
+                    <div (mouseenter)="show_content('username-content')" (mouseleave)="hide_content('username-content')" id="username-icon" class="input-icon">
+                        <svg width="20" height="20" viewBox="0 0 133 133" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="66.5" cy="66.5" r="66.5" fill="#FF8616"/>
+                            <ellipse cx="67" cy="112.5" rx="8" ry="7.5" fill="white"/>
+                            <path d="M56.3626 28.9224C55.6365 22.569 60.6053 17 67 17V17C73.3947 17 78.3635 22.569 77.6374 28.9224L69.6725 98.6155C69.5172 99.9741 68.3674 101 67 101V101C65.6326 101 64.4828 99.9741 64.3275 98.6155L56.3626 28.9224Z" fill="white"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input id="registration-email" type="email" placeholder="Email" />
+                </div>
+                <div class="input-container">
+                    <input id="registration-password1" type="password" placeholder="Password" />
+                </div>
+                <div class="input-container">
+                    <input id="registration-password2" type="password" placeholder="Password" />
+                    <div (mouseenter)="show_content('password2-content')" (mouseleave)="hide_content('password2-content')" id="password2-icon" class="input-icon">
+                        <svg width="20" height="20" viewBox="0 0 133 133" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="66.5" cy="66.5" r="66.5" fill="#FF8616"/>
+                            <ellipse cx="67" cy="112.5" rx="8" ry="7.5" fill="white"/>
+                            <path d="M56.3626 28.9224C55.6365 22.569 60.6053 17 67 17V17C73.3947 17 78.3635 22.569 77.6374 28.9224L69.6725 98.6155C69.5172 99.9741 68.3674 101 67 101V101C65.6326 101 64.4828 99.9741 64.3275 98.6155L56.3626 28.9224Z" fill="white"/>
+                        </svg>
+                    </div>
+                </div>
                 <button (click)="register()">Sign Up</button>
+
+                <div class="error-content" id="password2-content"></div>
+                <div class="error-content" id="username-content"></div>
             </form>
         </div>
 

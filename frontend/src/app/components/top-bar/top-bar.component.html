@@ -10,12 +10,37 @@
         <p (click)="go('/')" class="header-text">Sty<b style="font-weight: 500; color:#0284FE;">ll</b>z</p>
     </div>
 
-    <div *ngIf="is_logged()" class="icon-container flex flex-dir-row align-center just-center">
-        <img src="/static/assets/woman-icon.jpg" class="icon-img">
-        <svg style="margin-left: 10px;" width="20" height="11.6" viewBox="0 0 79 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div (click)="connect_profile_menu()" *ngIf="is_logged()" class="icon-container flex flex-dir-row align-center just-center">
+        <img [src]="get_profile_img()" class="icon-img">
+        <svg id="icon-triangle" style="margin-left: 10px;" width="20" height="11.6" viewBox="0 0 79 46" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path opacity="0.5" d="M43.07 44.3593C41.1098 46.3583 37.8902 46.3583 35.93 44.3593L1.50325 9.2507C-1.59901 6.087 0.642353 0.75 5.07328 0.75L73.9267 0.75C78.3577 0.75 80.599 6.08699 77.4968 9.2507L43.07 44.3593Z" fill="#363636"/>
         </svg>
     </div>
+    <div id="profile-menu-container" class="profile-menu-container">
+        <div class="profile-menu-header flex flex-dir-row space-between">
+            <div class="profile-menu-after-header flex flex-dir-row">
+                <img [src]="get_profile_img()">
+                <p>{{get_profile_name()}}</p>
+            </div>
+            <div (click)="connect_profile_menu()" class="profile-menu-closer">
+                <svg width="20" height="20" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.32233 2.32233L42.3223 42.3223" stroke="black" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M2.32233 42.3223L42.3223 2.32234" stroke="black" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="profile-menu-main">
+            <p>Профиль</p>
+            <hr>
+            <p>Проекты</p>
+            <hr>
+            <p>Помощь</p>
+            <p>Настройки</p>
+            <hr>
+            <p (click)="logout_profile_menu()">Выйти</p>
+        </div>
+    </div>
+    <div (click)="connect_profile_menu()" id="to_profile-menu-container"></div>
 </div>
 
 <div [class.active]="is_opened()" id="menu" class="menu">

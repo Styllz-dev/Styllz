@@ -7,6 +7,7 @@ import { Profile } from "../interface/profile";
 export class ProfileService {
   private User : Profile = {
     registered: false,
+    profile_image: "/static/assets/woman-icon.jpg",
   };
 
   constructor() { }
