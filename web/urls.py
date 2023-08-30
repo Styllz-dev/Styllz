@@ -19,10 +19,8 @@ from web.views import index
 
 
 routes = ['create-style',
-            'styles',
-            'sign-in',
-            'settings',
-            'test',
+            'register',
+            'profile',
             '']
 
 

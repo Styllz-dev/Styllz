@@ -47,25 +47,7 @@ export class RegistrationPageComponent implements OnInit {
 		// @ts-ignore
 		var password = document.getElementById('login-password').value;
 
-		const data: UserLogin = {
-			username: username,
-			password: password
-		}
-
-		this.login_service.create(data).subscribe(
-			response => {
-				this.profile.register({
-					username: username,
-					registered: true,
-					email: "",
-				})
-			},
-			error => {
-				console.log(error);
-			}
-		)
-
-		this.router.navigate(['']);
+		document.getElementById('error-container')!.style.display='flex';
 	}
 
 	register(): void {
@@ -104,27 +86,8 @@ export class RegistrationPageComponent implements OnInit {
 			document.getElementById('username-icon').style.display='none'
 		}
 
-		//TODO сделать отображение ошибок и подсказки что не так для удобства пользователя
 		if (password2 == password1 && ('a' <= username[0] && username[0] <= 'z') && username.length <= 16) {
-			const data: UserRegister = {
-				username: username,
-				email: email,
-				password: password1,
-			}
-
-			this.register_service.create(data).subscribe(
-				response => {
-					console.log(response);
-					this.profile.register({
-						username: username,
-						registered: true,
-						email: email,
-					})
-					this.router.navigate(['']);
-				}, error => {
-					console.log(error);
-				}
-			);
+			document.getElementById('error-container')!.style.display='flex';
 		}
 	}
 

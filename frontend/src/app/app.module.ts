@@ -20,6 +20,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
         CreateStyleComponent,
         RegistrationPageComponent,
         TopBarComponent,
+        ProfilePageComponent,
     ],
     imports: [
         BrowserModule,

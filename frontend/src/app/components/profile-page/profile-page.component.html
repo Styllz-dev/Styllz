@@ -1,0 +1,55 @@
+<div class="main">
+    <div class="profile-image flex">
+        <img src="/static/assets/woman-icon.jpg">
+        <p class="profile-image-text">{{this.user.username}}</p>
+        <div class="profile-image-edit-icon flex">
+            <svg viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27.5386 19.4567L32.6505 24.5686L36.3045 20.9146L31.1926 15.8027L27.5386 19.4567Z" fill="#001A72" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.8027 31.2827V36.3946H20.9146L27.4664 29.8429L31.3544 25.9547L28.7985 23.3987L26.2425 20.8428L21.9946 25.0908L15.8027 31.2827Z" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Edit</p>
+        </div>
+    </div>
+    <div class="profile-information">
+        <p class="inf-header">User information</p>
+        <div class="input-container">
+            <p class="input-text">Username</p>
+            <div class="input-low-container">
+                <input value="{{user.username}}" [readOnly]="change[0]">
+                <div class="svg-container">
+                    <svg width="30" height="30" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.3381 6.08686L24.4546 13.2034L29.5416 8.11656L22.425 1L17.3381 6.08686Z" fill="#001A72" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1 22.5503V29.6668H8.11656L17.2376 20.5458L22.6504 15.1328L19.0921 11.5745L15.5338 8.01624L9.62005 13.9302L1 22.5503Z" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <p class="input-text">E-mail</p>
+            <div class="input-low-container">
+                <input value="{{user.email}}" [readOnly]="change[1]">
+                <div class="svg-container">
+                    <svg width="30" height="30" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.3381 6.08686L24.4546 13.2034L29.5416 8.11656L22.425 1L17.3381 6.08686Z" fill="#001A72" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1 22.5503V29.6668H8.11656L17.2376 20.5458L22.6504 15.1328L19.0921 11.5745L15.5338 8.01624L9.62005 13.9302L1 22.5503Z" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <p class="input-text">Password</p>
+            <div class="input-low-container">
+                <input value="************" [readOnly]="change[2]">
+                <div class="svg-container">
+                    <svg width="30" height="30" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.3381 6.08686L24.4546 13.2034L29.5416 8.11656L22.425 1L17.3381 6.08686Z" fill="#001A72" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1 22.5503V29.6668H8.11656L17.2376 20.5458L22.6504 15.1328L19.0921 11.5745L15.5338 8.01624L9.62005 13.9302L1 22.5503Z" stroke="#001A72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <p class="inf-header">Other information</p>
+        <p style="color: " class="inf-header">Delete account</p>
+    </div>
+</div>

@@ -22,7 +22,7 @@
                 <img [src]="get_profile_img()">
                 <p>{{get_profile_name()}}</p>
             </div>
-            <div (click)="connect_profile_menu()" class="profile-menu-closer">
+            <div (click)="connect_profile_menu()">
                 <svg width="20" height="20" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2.32233 2.32233L42.3223 42.3223" stroke="black" stroke-width="3" stroke-linecap="round"/>
                     <path d="M2.32233 42.3223L42.3223 2.32234" stroke="black" stroke-width="3" stroke-linecap="round"/>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="profile-menu-main">
-            <p>Профиль</p>
+            <p (click)="go_by_profile('/profile')">Профиль</p>
             <hr>
             <p>Проекты</p>
             <hr>

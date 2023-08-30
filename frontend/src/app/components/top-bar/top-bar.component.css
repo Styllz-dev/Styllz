@@ -23,6 +23,7 @@ p,a,h1,h2,h3,h4,input {
 #svg-menu * {
     transition-duration: 500ms;
 }
+
 .menu {
     z-index: 820;
     --width: min(70%, 500px);
@@ -216,8 +217,6 @@ p,a,h1,h2,h3,h4,input {
 }
 .profile-menu-logout {
 
-}
-.profile-menu-closer {
 }
 
 .flex {
