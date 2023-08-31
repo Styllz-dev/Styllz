@@ -37,7 +37,7 @@ export class TopBarComponent implements OnInit {
 				username: "",
 				email: "",
 				registered: false,
-				profile_image: "/static/assets/woman-icon.jpg",
+				profile_image: "/assets/woman-icon.jpg",
 		};
 		private profile_menu_status: ProfileMenu = new ProfileMenu();
 

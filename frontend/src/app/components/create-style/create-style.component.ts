@@ -11,12 +11,12 @@ const loader_text_count:number=8;
 })
 export class CreateStyleComponent implements OnInit {
   public styles = [
-      "/static/assets/styles-images/sport.png",
-      "/static/assets/styles-images/casual.png",
-      "/static/assets/styles-images/business.png",
-      "/static/assets/styles-images/classic.png",
-      "/static/assets/styles-images/glamour.png",
-      "/static/assets/styles-images/oversize.png",
+      "/assets/styles-images/sport.png",
+      "/assets/styles-images/casual.png",
+      "/assets/styles-images/business.png",
+      "/assets/styles-images/classic.png",
+      "/assets/styles-images/glamour.png",
+      "/assets/styles-images/oversize.png",
   ];
   public styles_text = [
     "sport",
