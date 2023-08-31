@@ -109,6 +109,18 @@ export class TopBarComponent implements OnInit {
 						this.router.navigate(['/register']);
 		}
 
+		to_login(type: string): void {
+			if(this.user.registered) { if(type=='login') this.logout(); }
+			else {
+			  this.router.navigate(['/register'])
+			  setTimeout(function () {
+				if(type=='register') { // @ts-ignore
+				  document.getElementById('container').classList.add('right-panel-active');
+				}
+			  }, 10)
+			}
+		  }
+
 		logout_profile_menu() {
 				this.connect_profile_menu();
 				this.logout();

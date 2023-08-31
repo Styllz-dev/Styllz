@@ -1,10 +1,10 @@
 <div class="content">
     <div id="view" class="view flex flex-dir-col align-center">
-        <p class="main">Сделай свой стиль в <b style="font-weight: 500;">Styllz</b></p>
-        <p class="--main">Создавайте свой стиль в виртульной примерочной <b style="font-weight: 500;">Styllz</b>, которая потом вам найдет его в ближайшем магазине.</p>
+        <p class="main"><b style="font-weight: 500;">Sty<span style="color:#007ae0;">ll</span>z</b></p>
+        <p class="--main">Создавайте свои стили в виртуальной примерочной <b style="font-weight: 500;">Styllz</b> и покупайте их в ближайших магазинах</p>
 
         <div class="flex2">
-            <div (click)="go('/create-style')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
+            <div (click)="to_login('register')" class="btn clr1 flex align-center"><p>Начать работу со Styllz</p></div>
             <div (click)="to_login('login')" class="btn clr2 flex align-center">
                 <p *ngIf="!is_logged()">Войти</p>
                 <p *ngIf="is_logged()">Выйти</p>
@@ -23,34 +23,35 @@
         <div class="flex3">
             <img width="500px" src="/assets/opportunities1.png">
             <div class="text-container">
-                <p class="header">Сервис генерирует стиль с вашим фото</p>
-                <p class="text">Вы предоставляете сервису свое фото и описание стиля одежды, которую хотите увидеть на себе, после чего он генерирует стиль с данными характеристиками.</p>
+                <p class="header">Примерка одежды по фото</p>
+                <p class="text">Загрузите своё фото в Styllz, выберите желаемый стиль и оцените итоговый внешний вид.</p>
             </div>
         </div>
         <div class="flex3 dop-margin">
             <div class="text-container dop-padding">
                 <p class="header">Поиск одежды в онлайн магазинах</p>
-                <p class="text">После того как вы найдете стиль, который вам понравился, наш сервис покажет вам ссылки на похожие продукты в онлайн магазинах.</p>
+                <p class="text">После того как вы создадите свой стиль, наш сервис подскажет вам где можно купить желаемую одежду.</p>
             </div>
             <img width="500px" src="/assets/opportunities2.png">
         </div>
         <div class="flex3">
-            <img width="500px" src="/assets/opportunities2.png">
+            <img width="500px" src="/assets/opportunities3.png">
             <div class="text-container">
-                <p class="header">Сохранение  ранее созданных стилей</p>
-                <p class="text">После создания каждого стиля у вас будет возможность его сохранить и получить доступ к его просмотру в вашем профиле.</p>
+                <p class="header">Сохранение ранее созданных стилей</p>
+                <p class="text">Вы можете просматривать свои прошлые стили и изменять их.</p>
             </div>
         </div>
     </div>
 
 
     <div id="how-work">
-        <p class="main-text">Как работать</p>
+        <p class="main-text">Процесс создания стиля</p>
         <div class="container">
             <div class="box height flex flex-dir-col justify-content-center">
-                <p>1. Заполните инофрмацию о стиле, который хотите увидеть на себе</p>
-                <p>2. Нажмите на кнопку 'Create' и подождите пока создастся стиль</p>
-                <p>3. Посмотрите на фото и нажмите переделать если вам не понравится, подождите ещё немного и получите новое фото</p>
+                <p>1. Выберите стиль, который хотите увидеть на себе</p>
+                <p>2. Загрузите свою фотографию</p>
+                <p>2. Нажмите на кнопку 'Примерить' и ожидайте результат</p>
+                <p>3. Если вам не понравился результат, всегда можно его пересоздать</p>
             </div>
 
             <div class="vertical-line height"></div>
@@ -64,7 +65,7 @@
     </div>
 
     <div class="last-div" style="color: black;">
-        <p>HELP: boriskiva3@gmail.com</p>
+        <p>HELP: support@styllz.ai</p>
         <span>
             <p>PRIVACY POLICY</p>
             <p>TERMS OF USE</p>

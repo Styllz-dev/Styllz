@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
-import { CreateStyleComponent } from './components/create-style/create-style.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +25,6 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
     declarations: [
         AppComponent,
         StartPageComponent,
-        CreateStyleComponent,
         RegistrationPageComponent,
         TopBarComponent,
         ProfilePageComponent,

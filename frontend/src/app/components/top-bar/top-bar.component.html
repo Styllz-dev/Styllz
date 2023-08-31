@@ -62,7 +62,7 @@
 
     <hr style="margin-top: 7vh; margin-bottom: 5vh;">
 
-    <div (click)="go('/create-style')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
+    <div (click)="to_login('register')" class="btn clr1 flex align-center"><p>начать работу со Styllz</p></div>
     <div (click)="login()" class="btn clr2 flex align-center">
         <p *ngIf="is_logged()">Выйти</p>
         <p *ngIf="!is_logged()">Войти</p>
